@@ -1,11 +1,15 @@
 {
   "name": "fire_chief_squirtle",
   "version": "1.0.0",
-  "description": "",
+  "description": "javascript game",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --colors --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sloq/Fire_Chief_Squirtle.git"
   },
   "author": "Stephen Loquet",
   "license": "ISC",
