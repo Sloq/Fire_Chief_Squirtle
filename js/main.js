@@ -8,13 +8,13 @@ class Game {
     this.tick = this.tick.bind(this);
     this.canvasScreen = canvasScreen;
     this.gameSize = gameSize;
-    this.movingObjects = [new Squirtle(this, gameSize)];
+    this.displayComponents = [new Squirtle(this, gameSize)];
     this.tick();
   }
 
   update() {
-    for (let i = 0; i < this.movingObjects.length; i++) {
-      this.movingObjects[i].update();
+    for (let i = 0; i < this.displayComponents.length; i++) {
+      this.displayComponents[i].update();
     }
   }
 
@@ -25,14 +25,14 @@ class Game {
   }
 
   draw(screen, gamesize) {
-    for (let i = 0; i < this.movingObjects.length; i++) {
-      this.drawRect(screen, this.movingObjects[i]);
+    for (let i = 0; i < this.displayComponents.length; i++) {
+      this.drawRect(screen, this.displayComponents[i]);
     }
   }
 
   drawRect(screen, body) {
     screen.fillRect(body.center.x - body.size.x/2,
-                    body.center.x - body.size.x/2,
+                    body.center.y - body.size.y/2,
                     body.size.x, body.size.y);
   }
 }
