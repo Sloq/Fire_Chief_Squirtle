@@ -22,7 +22,7 @@ plugins = plugins.concat(
 );
 
 module.exports = {
-  entry: './jsAA/game.js',
+  entry: './js/main.js',
   output: {
     filename: './assets/javascripts/bundle.js',
   },
