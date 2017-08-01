@@ -2,11 +2,11 @@ import Keyboarder from './keyboarder';
 
 class Squirtle {
   constructor(game, gameSize) {
-    this.size = { x: 15, y: 15 };
+    this.size = { x: 30, y: 38 };
     this.center = { x: gameSize.x/2, y: gameSize.y/2 - this.size.y};
     this.game = game;
+    this.gameSize = gameSize;
     this.keyboarder = new Keyboarder();
-    console.log(this.keyboarder);
   }
 
   update() {
@@ -15,17 +15,17 @@ class Squirtle {
         this.center.x -= 2;
       }
     } else if (this.keyboarder.isDown(this.keyboarder.KEYS.RIGHT)) {
-      if (this.center.x <= 492) {
+      if (this.center.x <= this.gameSize.x-8) {
         this.center.x += 2;
       }
     }
 
     if (this.keyboarder.isDown(this.keyboarder.KEYS.UP)) {
-      if (this.center.y >= 8 ){
+      if (this.center.y >= 62 ){
         this.center.y -= 2;
       }
     } else if (this.keyboarder.isDown(this.keyboarder.KEYS.DOWN)) {
-      if (this.center.y <= 342 ) {
+      if (this.center.y <= this.gameSize.y-8 ) {
         this.center.y += 2;
       }
     }

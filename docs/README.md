@@ -19,6 +19,7 @@ In addition, this project will include:
 
 - [ ] A sidebar describing the controls
 - [ ] A production Readme
+- [ ] Scripts for the game, Squirtle(who the player controls), detecting keypresses, and enemies.
 
 ### Wireframes
 

@@ -1,20 +1,22 @@
 import Squirtle from './squirtle';
+import BounceFlame from './fire_enemy1';
 
 class Game {
-  constructor(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    const canvasScreen = canvas.getContext('2d');
-    const gameSize = { x: canvas.width, y: canvas.height };
+  constructor(topCanvas, lowerCanvas) {
+    const foreground = document.getElementById(topCanvas);
+    const background = document.getElementById(lowerCanvas);
+    const canvasScreen = foreground.getContext('2d');
+    const gameSize = { x: foreground.width, y: foreground.height };
     this.tick = this.tick.bind(this);
     this.canvasScreen = canvasScreen;
     this.gameSize = gameSize;
-    this.displayComponents = [new Squirtle(this, gameSize)];
+    this.movingObjects = [new Squirtle(this, gameSize), new BounceFlame(this, gameSize)];
     this.tick();
   }
 
   update() {
-    for (let i = 0; i < this.displayComponents.length; i++) {
-      this.displayComponents[i].update();
+    for (let i = 0; i < this.movingObjects.length; i++) {
+      this.movingObjects[i].update();
     }
   }
 
@@ -25,8 +27,9 @@ class Game {
   }
 
   draw(screen, gamesize) {
-    for (let i = 0; i < this.displayComponents.length; i++) {
-      this.drawRect(screen, this.displayComponents[i]);
+    screen.clearRect(0, 0, gamesize.x, gamesize.y);
+    for (let i = 0; i < this.movingObjects.length; i++) {
+      this.drawRect(screen, this.movingObjects[i]);
     }
   }
 
@@ -38,5 +41,5 @@ class Game {
 }
 
 window.onload = () => {
-  new Game("background-canvas");
+  new Game("foreground-canvas", "background-canvas");
 };
