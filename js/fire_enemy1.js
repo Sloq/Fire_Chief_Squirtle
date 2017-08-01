@@ -1,30 +1,33 @@
-import Keyboarder from './keyboarder';
+import MovingObjects from './moving_objects';
+import Sprite from './sprite';
 
-class BounceFlame {
-  constructor(game, gameSize) {
-    this.size = { x: 30, y: 38 };
-    this.center = {
-      x: gameSize.x*Math.random() ,
-      y: gameSize.y*Math.random()};
-
-    while (this.center.x < 280
-      && this.center.x > 230
-      && this.center.y > 175
-      && this.center.y < 225) {
-        this.center.x = gameSize.x*Math.random();
-        this.center.y = gameSize.y*Math.random();
+class BounceFlame extends MovingObjects {
+  constructor(img, gameSize) {
+    // this.size = { x: 30, y: 38 };
+    const sprite = new Sprite(img, 90, 46, 15, 18);
+    let xTrial = gameSize.x*Math.random();
+    let yTrial = gameSize.y*Math.random();
+    while (xTrial < 280
+      && xTrial > 230
+      && yTrial > 175
+      && yTrial < 225 || yTrial <  19 || yTrial > 315) {
+        xTrial = gameSize.x*Math.random();
+        yTrial = gameSize.y*Math.random();
     }
+
+    super('enemy', sprite, xTrial, yTrial, 30, 38);
+
 
     let speedX = Math.ceil(2*Math.random());
     let speedY = Math.ceil(1*Math.random());
 
-    if (this.center.x > gameSize.x/2) {
+    if (this.x > gameSize.x/2) {
       speedX = speedX;
     } else {
       speedX = -speedX;
     }
 
-    if (this.center.y > gameSize.y/2) {
+    if (this.y > gameSize.y/2) {
       speedY = speedY;
     } else {
       speedY = -speedY;
@@ -32,29 +35,33 @@ class BounceFlame {
 
     this.speedX = speedX;
     this.speedY = speedY;
-    this.game = game;
     this.gameSize = gameSize;
     this.ignited = true;
-    this.keyboarder = new Keyboarder();
   }
 
   reignite() {
-    if (this.center.x < 100 && this.center.y < 100) {
+    if (this.x < 100 && this.y < 100) {
       this.ignited = true;
     }
   }
 
-  update() {
+  update(collisions) {
+    let bounce = false;
+    collisions.forEach(e => {
+      if (e.type === "enemy") {
+        bounce = true;
+      }
+    });
     if (this.ignited) {
-      if (this.center.x <= 15) {
+      if (this.x <= 0 || bounce) {
         this.speedX = -this.speedX;
-      } else if (this.center.x >= this.gameSize.x-8) {
+      } else if (this.x >= this.gameSize.x-23) {
         this.speedX = -this.speedX;
       }
 
-      if (this.center.y <= 58) {
+      if (this.y <= 65 || bounce) {
         this.speedY = -this.speedY;
-      } else if (this.center.y >= this.gameSize.y-14) {
+      } else if (this.y >= this.gameSize.y-35) {
         this.speedY = -this.speedY;
       }
     } else {
@@ -62,8 +69,8 @@ class BounceFlame {
       this.speedY = -Math.abs(this.speedY);
     }
     this.reignite();
-    this.center.x += this.speedX;
-    this.center.y += this.speedY;
+    this.x += this.speedX;
+    this.y += this.speedY;
   }
 }
 

@@ -9,6 +9,12 @@ body {
   align-items: center;
 }
 
+body img {
+  width: 0;
+  height: 0;
+  background-color: none;
+}
+
 canvas {
   display: block;
   margin: auto;
