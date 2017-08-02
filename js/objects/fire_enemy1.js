@@ -6,7 +6,7 @@ class BounceFlame extends MovingObjects {
     // this.size = { x: 30, y: 38 };
     const sprite = new Sprite(img, 90, 46, 15, 18);
     let xTrial = gameSize.x*Math.random();
-    let yTrial = gameSize.y*Math.random();
+    let yTrial = 65 + (gameSize.y-65)*Math.random();
     while (xTrial < 280
       && xTrial > 230
       && yTrial > 175
@@ -15,7 +15,7 @@ class BounceFlame extends MovingObjects {
         yTrial = gameSize.y*Math.random();
     }
 
-    super('enemy', sprite, xTrial, yTrial, 30, 38);
+    super('enemy', sprite, xTrial, yTrial, 30, 36);
 
 
     let speedX = Math.ceil(2*Math.random());
@@ -32,7 +32,7 @@ class BounceFlame extends MovingObjects {
     } else {
       speedY = -speedY;
     }
-
+    this.img = img;
     this.speedX = speedX;
     this.speedY = speedY;
     this.gameSize = gameSize;
@@ -40,16 +40,21 @@ class BounceFlame extends MovingObjects {
   }
 
   reignite() {
-    if (this.x < 100 && this.y < 100) {
+    if (this.x < 10 && this.y < 65) {
       this.ignited = true;
+      this.sprite = new Sprite(this.img, 90, 46, 15, 18);
+      this.speedX = Math.ceil(2*Math.random());
+      this.speedY = Math.ceil(1*Math.random());
     }
   }
 
   update(collisions) {
     let bounce = false;
     collisions.forEach(e => {
-      if (e.type === "enemy") {
+      if (e.type === "enemy" && e.ignited && this.x < 40 && this.y < 40) {
         bounce = true;
+      } else if (e.type === "water") {
+        this.snuffedOut();
       }
     });
     if (this.ignited) {
@@ -59,18 +64,35 @@ class BounceFlame extends MovingObjects {
         this.speedX = -this.speedX;
       }
 
-      if (this.y <= 65 || bounce) {
+      if (this.y <= 35 || bounce) {
         this.speedY = -this.speedY;
       } else if (this.y >= this.gameSize.y-35) {
         this.speedY = -this.speedY;
       }
     } else {
-      this.speedX = -Math.abs(this.speedX);
-      this.speedY = -Math.abs(this.speedY);
+      this.aimForHome();
+      // this.speedX = -Math.abs(this.speedX);
+      // this.speedY = -Math.abs(this.speedY);
     }
     this.reignite();
     this.x += this.speedX;
     this.y += this.speedY;
+  }
+
+  aimForHome() {
+    this.speedY = 0;
+    this.speedX = 0;
+    if (this.x > 5) {
+      this.x -= 1;
+    }
+    if (this.y > 65) {
+      this.y -= 1;
+    }
+  }
+
+  snuffedOut() {
+    this.ignited = false;
+    this.sprite = new Sprite(this.img, 56, 47, 15, 14);
   }
 }
 

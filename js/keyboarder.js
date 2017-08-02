@@ -1,7 +1,7 @@
 class Keyboarder {
   constructor() {
     const keyState = {};
-    const KEYS = { LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40, SPACE: 32 };
+    const KEYS = { LEFT: 65, UP: 87, RIGHT: 68, DOWN: 83, SPACE: 32 };
     this.keyState = keyState;
     this.KEYS = KEYS;
     window.addEventListener('keydown', (e) => {

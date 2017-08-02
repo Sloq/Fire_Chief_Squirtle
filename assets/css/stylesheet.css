@@ -34,6 +34,11 @@ canvas {
   position:absolute;
 }
 
+@font-face {
+  font-family: "PokemonGB";
+  src: url("../font/PokemonGB.ttf");
+}
+
 #background-canvas {
   z-index: 0;
   background-image: url("../img/grass-background.png");
@@ -41,14 +46,18 @@ canvas {
   background-size: cover;
 }
 
+#main-canvas {
+  z-index: 5;
+}
+
 #foreground-canvas {
   z-index: 11;
 }
 
-@font-face {
-  font-family: "PokemonGB";
-  src: url("../font/PokemonGB.ttf");
+#console-canvas {
+  z-index: 50;
 }
+
 
 .upper-page {
   font-family: 'Wendy One', sans-serif;
