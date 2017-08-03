@@ -13,13 +13,26 @@ class Game {
     this.tick = this.tick.bind(this);
     this.canvasScreen = canvasScreen;
     this.gameSize = gameSize;
-    const movingObjects = [];
-    [new Squirtle(this, sprites, gameSize), new BounceFlame(sprites, gameSize), new BounceFlame(sprites, gameSize)].forEach(obj => {
-      movingObjects.push(obj);
-    });
+    this.level = 0;
+    const levelEnemies = [
+      [new Squirtle(this, sprites, gameSize),
+        new BounceFlame(sprites,gameSize),
+        new BounceFlame(sprites, gameSize)],
+      [new Squirtle(this, sprites, gameSize),
+        new BounceFlame(sprites,gameSize),
+        new BounceFlame(sprites,gameSize),
+        new BounceFlame(sprites, gameSize)],
+      [new Squirtle(this, sprites, gameSize),
+        new BounceFlame(sprites,gameSize),
+        new BounceFlame(sprites,gameSize),
+        new BounceFlame(sprites,gameSize),
+        new BounceFlame(sprites, gameSize)]
+    ];
+
+    this.levelEnemies = levelEnemies;
     this.scoreCtx = scoreCtx;
     this.sprites = sprites;
-    this.movingObjects = movingObjects;
+    this.movingObjects = levelEnemies[this.level];
     this.gameOver = false;
     this.gameWon = false;
     this.master = master;
@@ -34,7 +47,8 @@ class Game {
       if (this.movingObjects[i].isDead) {
         this.gameOver = true;
       }
-      if (this.movingObjects[i].type === "enemy" && this.movingObjects[i].ignited) {
+      if (this.movingObjects[i].type === "enemy" &&
+          this.movingObjects[i].ignited) {
         countIgnited += 1;
       }
       this.movingObjects[i].lifeSpan -= 1;
@@ -61,10 +75,17 @@ class Game {
     this.update();
     this.draw(this.canvasScreen, this.gameSize);
     if (!this.gameOver && !this.gameWon) {
-      window.requestAnimationFrame(this.tick);
+        window.requestAnimationFrame(this.tick);
     }
-    if (this.gameWon) {
-      this.master.gameWon();
+    if (this.gameWon &&
+      this.level+1 === this.levelEnemies.length) {
+        this.master.gameWon();
+    } else if (this.gameWon) {
+      this.level += 1;
+      this.gameWon = false;
+      this.movingObjects = this.levelEnemies[this.level];
+      console.log(this.levelEnemies[this.level]);
+      this.tick();
     } else if (this.gameOver) {
       let x = 0;
       const interval = setInterval(() => {

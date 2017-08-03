@@ -20,11 +20,10 @@ class Squirtle extends MovingObjects {
   }
 
   update(collisions) {
-    // game.scoreCtx.clearRect(0, 0, gamesize.x, gamesize.y);
-    //   for (let i = 0; i < this.movingObjects.length; i++) {
-    //     this.drawImage(screen, this.movingObjects[i]);
-    //   }
-    // }
+    this.game.scoreCtx.clearRect(0, 0, this.gameSize.x, this.gameSize.y);
+    this.game.scoreCtx.font = "25px Coiny, sans-serif";
+    this.game.scoreCtx.fillText(`level: ${this.game.level+1}`,10,25);
+
 
 
     collisions.forEach(e => {

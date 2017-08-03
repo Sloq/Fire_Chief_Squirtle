@@ -4,19 +4,25 @@ import Sprite from './sprite';
 class BounceFlame extends MovingObjects {
   constructor(img, gameSize) {
     // this.size = { x: 30, y: 38 };
-    const sprite = new Sprite(img, 90, 46, 15, 18);
+    const sprites = [new Sprite(img, 90, 46, 15, 18),
+                    new Sprite(img, 108, 46,15, 18),
+                    new Sprite(img, 126, 46, 15, 18)];
+    console.log(sprites[0]);
     let xTrial = 30 + (gameSize.x-30)*Math.random();
     let yTrial = 65 + (gameSize.y-65)*Math.random();
-    while (xTrial < 280
+    while (xTrial < 290
       && xTrial > 230
-      && yTrial > 175
-      && yTrial < 225 || yTrial <  19 || yTrial > 315) {
+      && yTrial > 165
+      && yTrial < 235 || yTrial <  19 || yTrial > 315) {
+        console.log("redoing landing");
         xTrial = gameSize.x*Math.random();
         yTrial = gameSize.y*Math.random();
     }
+    super('enemy', sprites[0], xTrial, yTrial, 30, 36);
 
-    super('enemy', sprite, xTrial, yTrial, 30, 36);
-
+    this.sprites = sprites;
+    this.spriteRotation = 0;
+    this.spriteTicker = 0;
     let speedX = Math.ceil(2*Math.random());
     let speedY = Math.ceil(1*Math.random());
 
@@ -48,7 +54,14 @@ class BounceFlame extends MovingObjects {
   }
 
   update(collisions) {
+    this.spriteTicker += 1;
     let bounce = false;
+    if (this.spriteTicker === 40 && this.ignited) {
+      this.spriteTicker = 0;
+      this.spriteRotation = (this.spriteRotation + 1) % 3;
+      console.log(this.spriteRotation);
+      this.sprite = this.sprites[this.spriteRotation];
+    }
     collisions.forEach(e => {
       if (e.type === "enemy" && e.ignited && this.x < 40 && this.y < 40) {
         bounce = true;

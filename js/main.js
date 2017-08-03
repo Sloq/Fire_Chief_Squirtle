@@ -43,15 +43,15 @@ class Master {
     this.overlay.strokeStyle = 'black';
     this.overlay.lineWidth = 4;
     this.overlay.font = "55px Coiny, sans-serif";
-    this.overlay.fillText("Press Enter",105,140);
-    this.overlay.strokeText('Press Enter', 105, 140);
+    this.overlay.fillText("Game Over",105,140);
+    this.overlay.strokeText('Game Over', 105, 140);
 
     this.overlay.fillStyle = 'white';
     this.overlay.strokeStyle = 'black';
-    this.overlay.lineWidth = 4;
-    this.overlay.font = "40px Coiny, sans-serif";
-    this.overlay.fillText("To Start New Game",60,180);
-    this.overlay.strokeText("To Start New Game",60,180);
+    this.overlay.lineWidth = 2;
+    this.overlay.font = "35px Coiny, sans-serif";
+    this.overlay.fillText("Press Enter To Restart",60,180);
+    this.overlay.strokeText("Press Enter To Restart",60,180);
 
     const that = this;
     window.addEventListener('keypress', function capture(e) {
