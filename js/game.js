@@ -8,6 +8,7 @@ class Game {
     const foreground = document.getElementById("foreground-canvas");
     const sprites = document.getElementById("squirtel_sprite");
     const canvasScreen = main.getContext('2d');
+    const scoreCtx = foreground.getContext('2d');
     const gameSize = { x: main.width, y: main.height };
     this.tick = this.tick.bind(this);
     this.canvasScreen = canvasScreen;
@@ -16,22 +17,29 @@ class Game {
     [new Squirtle(this, sprites, gameSize), new BounceFlame(sprites, gameSize), new BounceFlame(sprites, gameSize)].forEach(obj => {
       movingObjects.push(obj);
     });
+    this.scoreCtx = scoreCtx;
     this.sprites = sprites;
     this.movingObjects = movingObjects;
     this.gameOver = false;
+    this.gameWon = false;
     this.master = master;
     this.tick();
   }
 
   update() {
-    let allIgnited = this.movingObjects.length;
+    let countIgnited = 0;
+    let expiredObjects = [];
     for (let i = 0; i < this.movingObjects.length; i++) {
       const collisionArr = [];
       if (this.movingObjects[i].isDead) {
         this.gameOver = true;
       }
-      if (!this.movingObjects[i].ignited) {
-        allIgnited -= 1;
+      if (this.movingObjects[i].type === "enemy" && this.movingObjects[i].ignited) {
+        countIgnited += 1;
+      }
+      this.movingObjects[i].lifeSpan -= 1;
+      if (this.movingObjects[i].lifeSpan <= 0) {
+        expiredObjects.push(i);
       }
       for (let x = 0; x < this.movingObjects.length; x++) {
         if (this.colliding(this.movingObjects[i],
@@ -41,20 +49,23 @@ class Game {
       }
       this.movingObjects[i].update(collisionArr);
     }
-    // if (allIgnited === 0) {
-    //   this.master.gameWon();
-    // }
+    for (let i = expiredObjects.length-1; i >= 0; i--) {
+      this.movingObjects.splice(expiredObjects[i], 1);
+    }
+    if (countIgnited === 0) {
+      this.gameWon = true;
+    }
   }
 
   tick() {
     this.update();
     this.draw(this.canvasScreen, this.gameSize);
-
-    // if ()
-
-    if (!this.gameOver) {
+    if (!this.gameOver && !this.gameWon) {
       window.requestAnimationFrame(this.tick);
-    } else {
+    }
+    if (this.gameWon) {
+      this.master.gameWon();
+    } else if (this.gameOver) {
       let x = 0;
       const interval = setInterval(() => {
         x += 1;
@@ -70,7 +81,6 @@ class Game {
   }
 
   draw(screen, gamesize) {
-    console.log("in draw");
     screen.clearRect(0, 0, gamesize.x, gamesize.y);
     for (let i = 0; i < this.movingObjects.length; i++) {
       this.drawImage(screen, this.movingObjects[i]);
@@ -86,7 +96,6 @@ class Game {
   }
 
   drawImage(screen, body) {
-    // console.log(body);
     screen.drawImage(body.sprite.img,
         body.sprite.srcX, body.sprite.srcY,
         body.sprite.width, body.sprite.height,
@@ -96,8 +105,6 @@ class Game {
   }
 
   addBody(obj) {
-    console.log("adding body");
-    console.log(obj);
     this.movingObjects.push(obj);
   }
 

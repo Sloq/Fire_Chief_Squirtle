@@ -11,13 +11,22 @@ class Squirtle extends MovingObjects {
     this.sprite = sprite;
     this.gameSize = gameSize;
     this.keyboarder = new Keyboarder();
+    this.lives = 3;
     this.isDead = false;
     this.facing = 6;
     this.game = game;
     this.spaceDown = Date.now();
+    this.stats = [];
   }
 
   update(collisions) {
+    // game.scoreCtx.clearRect(0, 0, gamesize.x, gamesize.y);
+    //   for (let i = 0; i < this.movingObjects.length; i++) {
+    //     this.drawImage(screen, this.movingObjects[i]);
+    //   }
+    // }
+
+
     collisions.forEach(e => {
       if (e.type === "enemy" && e.ignited) {
         this.isDead = true;

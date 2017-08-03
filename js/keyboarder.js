@@ -10,15 +10,11 @@ class Keyboarder {
     window.addEventListener('keyup', (e) => {
         keyState[e.keyCode] = false;
     });
-    // this.isDown = this.isDown.bind(this);
   }
 
   isDown(keyCode) {
-    // console.log(keyCode);
     return this.keyState[keyCode] === true;
   }
 }
 
 export default Keyboarder;
-
-// squirtle.keyboarder.keystate[e]

@@ -5,7 +5,7 @@ class BounceFlame extends MovingObjects {
   constructor(img, gameSize) {
     // this.size = { x: 30, y: 38 };
     const sprite = new Sprite(img, 90, 46, 15, 18);
-    let xTrial = gameSize.x*Math.random();
+    let xTrial = 30 + (gameSize.x-30)*Math.random();
     let yTrial = 65 + (gameSize.y-65)*Math.random();
     while (xTrial < 280
       && xTrial > 230
@@ -16,7 +16,6 @@ class BounceFlame extends MovingObjects {
     }
 
     super('enemy', sprite, xTrial, yTrial, 30, 36);
-
 
     let speedX = Math.ceil(2*Math.random());
     let speedY = Math.ceil(1*Math.random());
