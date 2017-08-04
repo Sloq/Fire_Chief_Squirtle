@@ -43,3 +43,9 @@ if  (this.keyboarder.isDown(this.keyboarder.KEYS.SPACE) && (time-this.spaceDown 
   let splashPositionX = this.x + 3;
   let splashPositionY = this.y;
 ```
+
+## Future Features
+
+* New enemy classes that employ different/more complex logic
+* Add sound effects and background music
+* Have extinguished enemies drop gems that can power up Squirtle until it evolves and upgrades his water splash
