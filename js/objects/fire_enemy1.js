@@ -8,11 +8,11 @@ class BounceFlame extends MovingObjects {
                     new Sprite(img, 108, 46,15, 18),
                     new Sprite(img, 126, 46, 15, 18)];
     console.log(sprites[0]);
-    let xTrial = 30 + (gameSize.x-30)*Math.random();
+    let xTrial = 30 + (gameSize.x-40)*Math.random();
     let yTrial = 65 + (gameSize.y-65)*Math.random();
     while (xTrial < 290
       && xTrial > 230
-      && yTrial > 165
+      && yTrial > 135
       && yTrial < 235 || yTrial <  19 || yTrial > 315) {
         console.log("redoing landing");
         xTrial = gameSize.x*Math.random();

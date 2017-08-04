@@ -215,6 +215,13 @@ class Game {
         new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
         new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
         new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize)],
+      [new __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__["a" /* default */](this, sprites, gameSize),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
         new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize)]
     ];
 
@@ -300,9 +307,9 @@ class Game {
   colliding(body1, body2) {
     return !(body1 === body2 ||
             body1.x + body1.width/2 < body2.x - body2.width/2 ||
-            body1.y + body1.height/2 < body2.y - body2.height/2 + 4 ||
+            body1.y + body1.height/2 < body2.y - body2.height/2 + 6 ||
             body1.x - body1.width/2 > body2.x + body2.width/2 ||
-            body1.y - body1.height/2 + 4 > body2.y + body2.height/2);
+            body1.y - body1.height/2 + 6 > body2.y + body2.height/2);
   }
 
   drawImage(screen, body) {
@@ -377,7 +384,7 @@ class Sprite {
 
 class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* default */] {
   constructor(game, img, gameSize) {
-    let sprite = new __WEBPACK_IMPORTED_MODULE_2__sprite__["a" /* default */](img, 1, 25, 17, 19);
+    let sprite = new __WEBPACK_IMPORTED_MODULE_2__sprite__["a" /* default */](img, 1, 22, 17, 21);
     super('squirtle', sprite, gameSize.x/2, gameSize.y/2, 34, 38);
     this.img = img;
     this.sprite = sprite;
@@ -513,11 +520,11 @@ class BounceFlame extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* d
                     new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 108, 46,15, 18),
                     new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 126, 46, 15, 18)];
     console.log(sprites[0]);
-    let xTrial = 30 + (gameSize.x-30)*Math.random();
+    let xTrial = 30 + (gameSize.x-40)*Math.random();
     let yTrial = 65 + (gameSize.y-65)*Math.random();
     while (xTrial < 290
       && xTrial > 230
-      && yTrial > 165
+      && yTrial > 135
       && yTrial < 235 || yTrial <  19 || yTrial > 315) {
         console.log("redoing landing");
         xTrial = gameSize.x*Math.random();

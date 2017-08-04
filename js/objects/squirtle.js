@@ -5,7 +5,7 @@ import WaterSplash from './water_splash';
 
 class Squirtle extends MovingObjects {
   constructor(game, img, gameSize) {
-    let sprite = new Sprite(img, 1, 25, 17, 19);
+    let sprite = new Sprite(img, 1, 22, 17, 21);
     super('squirtle', sprite, gameSize.x/2, gameSize.y/2, 34, 38);
     this.img = img;
     this.sprite = sprite;
