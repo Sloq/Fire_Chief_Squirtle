@@ -33,7 +33,6 @@ class Master {
           window.removeEventListener('keypress', capture, false);
           that.overlay.clearRect(0, 0, 500, 350);
           that.game = new Game(that);
-          // game.stopPropogation();
         }
     });
   }
@@ -59,7 +58,6 @@ class Master {
           window.removeEventListener('keypress', capture, false);
           that.overlay.clearRect(0, 0, 500, 350);
           that.game = new Game(that);
-          // game.stopPropogation();
         }
     });
   }

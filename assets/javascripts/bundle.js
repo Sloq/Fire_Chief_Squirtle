@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,8 +68,46 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+
+class MovingObjects {
+  constructor(type, sprite, x, y, width, height) {
+    this.type = type;
+    this.sprite = sprite;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (MovingObjects);
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Sprite {
+  constructor(img, srcX, srcY, srcW, srcH) {
+    this.img = img;
+    this.srcX = srcX;
+    this.srcY = srcY;
+    this.width = srcW;
+    this.height = srcH;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Sprite);
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_js__ = __webpack_require__(3);
 
 
 class Master {
@@ -105,7 +143,6 @@ class Master {
           window.removeEventListener('keypress', capture, false);
           that.overlay.clearRect(0, 0, 500, 350);
           that.game = new __WEBPACK_IMPORTED_MODULE_0__game_js__["a" /* default */](that);
-          // game.stopPropogation();
         }
     });
   }
@@ -131,7 +168,6 @@ class Master {
           window.removeEventListener('keypress', capture, false);
           that.overlay.clearRect(0, 0, 500, 350);
           that.game = new __WEBPACK_IMPORTED_MODULE_0__game_js__["a" /* default */](that);
-          // game.stopPropogation();
         }
     });
   }
@@ -146,47 +182,12 @@ window.onload = () => {
 
 
 /***/ }),
-/* 1 */,
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class Keyboarder {
-  constructor() {
-    const keyState = {};
-    const KEYS = { LEFT: 65, UP: 87, RIGHT: 68, DOWN: 83, SPACE: 32 };
-    this.keyState = keyState;
-    this.KEYS = KEYS;
-    window.addEventListener('keydown', (e) => {
-        keyState[e.keyCode] = true;
-    });
-    window.addEventListener('keyup', (e) => {
-        keyState[e.keyCode] = false;
-    });
-  }
-
-  isDown(keyCode) {
-    return this.keyState[keyCode] === true;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Keyboarder);
-
-
-/***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__ = __webpack_require__(8);
 
 
 
@@ -230,7 +231,7 @@ class Game {
     this.sprites = sprites;
     this.movingObjects = levelEnemies[this.level];
     this.gameOver = false;
-    this.gameWon = false;
+    this.levelWon = false;
     this.master = master;
     this.tick();
   }
@@ -263,22 +264,22 @@ class Game {
       this.movingObjects.splice(expiredObjects[i], 1);
     }
     if (countIgnited === 0) {
-      this.gameWon = true;
+      this.levelWon = true;
     }
   }
 
   tick() {
     this.update();
     this.draw(this.canvasScreen, this.gameSize);
-    if (!this.gameOver && !this.gameWon) {
+    if (!this.gameOver && !this.levelWon) {
         window.requestAnimationFrame(this.tick);
     }
-    if (this.gameWon &&
+    if (this.levelWon &&
       this.level+1 === this.levelEnemies.length) {
         this.master.gameWon();
-    } else if (this.gameWon) {
+    } else if (this.levelWon) {
       this.level += 1;
-      this.gameWon = false;
+      this.levelWon = false;
       this.movingObjects = this.levelEnemies[this.level];
       this.tick();
     } else if (this.gameOver) {
@@ -330,52 +331,14 @@ class Game {
 
 
 /***/ }),
-/* 11 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-class MovingObjects {
-  constructor(type, sprite, x, y, width, height) {
-    this.type = type;
-    this.sprite = sprite;
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (MovingObjects);
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Sprite {
-  constructor(img, srcX, srcY, srcW, srcH) {
-    this.img = img;
-    this.srcX = srcX;
-    this.srcY = srcY;
-    this.width = srcW;
-    this.height = srcH;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Sprite);
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__keyboarder__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__moving_objects__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sprite__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__water_splash__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__keyboarder__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__moving_objects__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sprite__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__water_splash__ = __webpack_require__(6);
 
 
 
@@ -460,18 +423,44 @@ class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* defa
 
 
 /***/ }),
-/* 14 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(12);
+class Keyboarder {
+  constructor() {
+    const keyState = {};
+    const KEYS = { LEFT: 65, UP: 87, RIGHT: 68, DOWN: 83, SPACE: 32 };
+    this.keyState = keyState;
+    this.KEYS = KEYS;
+    window.addEventListener('keydown', (e) => {
+        keyState[e.keyCode] = true;
+    });
+    window.addEventListener('keyup', (e) => {
+        keyState[e.keyCode] = false;
+    });
+  }
+
+  isDown(keyCode) {
+    return this.keyState[keyCode] === true;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Keyboarder);
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
 
 
 
 class WaterSplash extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* default */] {
   constructor(img, squirtleX, squirtleY) {
-    // this.size = { x: 30, y: 38 };
     const sprite = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 60, 0, 13, 13);
     super('water', sprite, squirtleX, squirtleY, 26, 26, 18);
   }
@@ -481,11 +470,11 @@ class WaterSplash extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /*
 
 
 /***/ }),
-/* 15 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(0);
 
 
 class TemporaryObject extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* default */] {
@@ -503,12 +492,12 @@ class TemporaryObject extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" 
 
 
 /***/ }),
-/* 16 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
 
 
 

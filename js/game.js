@@ -41,7 +41,7 @@ class Game {
     this.sprites = sprites;
     this.movingObjects = levelEnemies[this.level];
     this.gameOver = false;
-    this.gameWon = false;
+    this.levelWon = false;
     this.master = master;
     this.tick();
   }
@@ -74,22 +74,22 @@ class Game {
       this.movingObjects.splice(expiredObjects[i], 1);
     }
     if (countIgnited === 0) {
-      this.gameWon = true;
+      this.levelWon = true;
     }
   }
 
   tick() {
     this.update();
     this.draw(this.canvasScreen, this.gameSize);
-    if (!this.gameOver && !this.gameWon) {
+    if (!this.gameOver && !this.levelWon) {
         window.requestAnimationFrame(this.tick);
     }
-    if (this.gameWon &&
+    if (this.levelWon &&
       this.level+1 === this.levelEnemies.length) {
         this.master.gameWon();
-    } else if (this.gameWon) {
+    } else if (this.levelWon) {
       this.level += 1;
-      this.gameWon = false;
+      this.levelWon = false;
       this.movingObjects = this.levelEnemies[this.level];
       this.tick();
     } else if (this.gameOver) {
