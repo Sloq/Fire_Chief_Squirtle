@@ -106,17 +106,28 @@ canvas {
   height: 350px;
   overflow: hidden;
   color: white;
+
 }
 
 .right-sidebar div p {
-  padding-top: 10px;
+  padding: 5px;
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-bottom: 5px;
   font-size: 18px;
+  margin: 0;
 }
 
 .right-sidebar div img {
   padding-left: 3px;
   width: 90px;
   height: 90px;
+}
+
+#spacebar {
+  width: 90px;
+  height: 50px;
+  padding-top: 46px;
 }
 
 .right-sidebar img {
