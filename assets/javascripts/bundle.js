@@ -280,7 +280,6 @@ class Game {
       this.level += 1;
       this.gameWon = false;
       this.movingObjects = this.levelEnemies[this.level];
-      console.log(this.levelEnemies[this.level]);
       this.tick();
     } else if (this.gameOver) {
       let x = 0;
@@ -519,14 +518,12 @@ class BounceFlame extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* d
     const sprites = [new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 90, 46, 15, 18),
                     new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 108, 46,15, 18),
                     new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 126, 46, 15, 18)];
-    console.log(sprites[0]);
     let xTrial = 30 + (gameSize.x-40)*Math.random();
     let yTrial = 65 + (gameSize.y-65)*Math.random();
     while (xTrial < 290
       && xTrial > 230
       && yTrial > 135
       && yTrial < 235 || yTrial <  19 || yTrial > 315) {
-        console.log("redoing landing");
         xTrial = gameSize.x*Math.random();
         yTrial = gameSize.y*Math.random();
     }
@@ -571,7 +568,6 @@ class BounceFlame extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* d
     if (this.spriteTicker === 40 && this.ignited) {
       this.spriteTicker = 0;
       this.spriteRotation = (this.spriteRotation + 1) % 3;
-      console.log(this.spriteRotation);
       this.sprite = this.sprites[this.spriteRotation];
     }
     collisions.forEach(e => {

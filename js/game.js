@@ -91,7 +91,6 @@ class Game {
       this.level += 1;
       this.gameWon = false;
       this.movingObjects = this.levelEnemies[this.level];
-      console.log(this.levelEnemies[this.level]);
       this.tick();
     } else if (this.gameOver) {
       let x = 0;

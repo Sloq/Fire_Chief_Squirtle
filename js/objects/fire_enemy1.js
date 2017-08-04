@@ -7,14 +7,12 @@ class BounceFlame extends MovingObjects {
     const sprites = [new Sprite(img, 90, 46, 15, 18),
                     new Sprite(img, 108, 46,15, 18),
                     new Sprite(img, 126, 46, 15, 18)];
-    console.log(sprites[0]);
     let xTrial = 30 + (gameSize.x-40)*Math.random();
     let yTrial = 65 + (gameSize.y-65)*Math.random();
     while (xTrial < 290
       && xTrial > 230
       && yTrial > 135
       && yTrial < 235 || yTrial <  19 || yTrial > 315) {
-        console.log("redoing landing");
         xTrial = gameSize.x*Math.random();
         yTrial = gameSize.y*Math.random();
     }
@@ -59,7 +57,6 @@ class BounceFlame extends MovingObjects {
     if (this.spriteTicker === 40 && this.ignited) {
       this.spriteTicker = 0;
       this.spriteRotation = (this.spriteRotation + 1) % 3;
-      console.log(this.spriteRotation);
       this.sprite = this.sprites[this.spriteRotation];
     }
     collisions.forEach(e => {
