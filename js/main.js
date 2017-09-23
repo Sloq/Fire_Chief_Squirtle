@@ -6,9 +6,9 @@ class Master {
     const overlay = consoleScreen.getContext('2d');
 
     this.overlay = overlay;
-    overlay.font = "40px Coiny, sans-serif";
+    overlay.font = "40px Wendy One, sans-serif";
     overlay.fillText("Start New Game",110,150);
-    overlay.font = "30px Coiny, sans-serif";
+    overlay.font = "30px Wendy One, sans-serif";
     overlay.fillText("Press Enter",170,180);
 
     const that = this;

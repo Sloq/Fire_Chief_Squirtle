@@ -16,24 +16,24 @@ class Game {
     this.level = 0;
     const levelEnemies = [
       [new Squirtle(this, sprites, gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites, gameSize)],
+        new BounceFlame(sprites, gameSize, this),
+        new BounceFlame(sprites, gameSize, this)],
       [new Squirtle(this, sprites, gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites, gameSize)],
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites, gameSize, this)],
       [new Squirtle(this, sprites, gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites, gameSize)],
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites, gameSize, this)],
       [new Squirtle(this, sprites, gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites,gameSize),
-        new BounceFlame(sprites, gameSize)]
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites, gameSize, this)]
     ];
 
     this.levelEnemies = levelEnemies;
@@ -43,6 +43,7 @@ class Game {
     this.gameOver = false;
     this.levelWon = false;
     this.master = master;
+    this.score = 0;
     this.tick();
   }
 
@@ -89,6 +90,7 @@ class Game {
         this.master.gameWon();
     } else if (this.levelWon) {
       this.level += 1;
+      this.score += 1000;
       this.levelWon = false;
       this.movingObjects = this.levelEnemies[this.level];
       this.tick();
@@ -116,9 +118,9 @@ class Game {
 
   colliding(body1, body2) {
     return !(body1 === body2 ||
-            body1.x + body1.width/2 < body2.x - body2.width/2 ||
+            body1.x + (body1.width/2 + 6) < body2.x - body2.width/2 ||
             body1.y + body1.height/2 < body2.y - body2.height/2 + 6 ||
-            body1.x - body1.width/2 > body2.x + body2.width/2 ||
+            body1.x - (body1.width/2 - 6) > body2.x + body2.width/2 ||
             body1.y - body1.height/2 + 6 > body2.y + body2.height/2);
   }
 

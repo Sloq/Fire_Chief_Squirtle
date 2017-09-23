@@ -1,12 +1,17 @@
 import MovingObjects from './moving_objects';
 import Sprite from './sprite';
+import SmallGem from './small_gem';
+import MediumGem from './medium_gem';
+import LargeGem from './large_gem';
 
 class BounceFlame extends MovingObjects {
-  constructor(img, gameSize) {
+  constructor(img, gameSize, game) {
     // this.size = { x: 30, y: 38 };
     const sprites = [new Sprite(img, 90, 46, 15, 18),
                     new Sprite(img, 108, 46,15, 18),
-                    new Sprite(img, 126, 46, 15, 18)];
+                    new Sprite(img, 126, 46,15, 18),
+                    new Sprite(img, 144, 46,15, 18),
+                    new Sprite(img, 162, 46, 15, 18)];
     let xTrial = 30 + (gameSize.x-40)*Math.random();
     let yTrial = 65 + (gameSize.y-65)*Math.random();
     while (xTrial < 290
@@ -18,6 +23,7 @@ class BounceFlame extends MovingObjects {
     }
     super('enemy', sprites[0], xTrial, yTrial, 30, 36);
 
+    this.game = game;
     this.sprites = sprites;
     this.spriteRotation = 0;
     this.spriteTicker = 0;
@@ -54,15 +60,15 @@ class BounceFlame extends MovingObjects {
   update(collisions) {
     this.spriteTicker += 1;
     let bounce = false;
-    if (this.spriteTicker === 40 && this.ignited) {
+    if (this.spriteTicker >= 4 && this.ignited) {
       this.spriteTicker = 0;
-      this.spriteRotation = (this.spriteRotation + 1) % 3;
+      this.spriteRotation = (this.spriteRotation + 1) % 5;
       this.sprite = this.sprites[this.spriteRotation];
     }
     collisions.forEach(e => {
       if (e.type === "enemy" && e.ignited && this.x < 40 && this.y < 40) {
         bounce = true;
-      } else if (e.type === "water") {
+      } else if (e.type === "water" && this.ignited) {
         this.snuffedOut();
       }
     });
@@ -102,6 +108,7 @@ class BounceFlame extends MovingObjects {
   snuffedOut() {
     this.ignited = false;
     this.sprite = new Sprite(this.img, 56, 47, 15, 14);
+    this.game.addBody(new LargeGem(this.img, this.x, this.y));
   }
 }
 

@@ -116,9 +116,9 @@ class Master {
     const overlay = consoleScreen.getContext('2d');
 
     this.overlay = overlay;
-    overlay.font = "40px Coiny, sans-serif";
+    overlay.font = "40px Wendy One, sans-serif";
     overlay.fillText("Start New Game",110,150);
-    overlay.font = "30px Coiny, sans-serif";
+    overlay.font = "30px Wendy One, sans-serif";
     overlay.fillText("Press Enter",170,180);
 
     const that = this;
@@ -206,24 +206,24 @@ class Game {
     this.level = 0;
     const levelEnemies = [
       [new __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__["a" /* default */](this, sprites, gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize)],
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize, this)],
       [new __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__["a" /* default */](this, sprites, gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize)],
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize, this)],
       [new __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__["a" /* default */](this, sprites, gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize)],
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize, this)],
       [new __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__["a" /* default */](this, sprites, gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize),
-        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize)]
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize, this)]
     ];
 
     this.levelEnemies = levelEnemies;
@@ -233,6 +233,7 @@ class Game {
     this.gameOver = false;
     this.levelWon = false;
     this.master = master;
+    this.score = 0;
     this.tick();
   }
 
@@ -279,6 +280,7 @@ class Game {
         this.master.gameWon();
     } else if (this.levelWon) {
       this.level += 1;
+      this.score += 1000;
       this.levelWon = false;
       this.movingObjects = this.levelEnemies[this.level];
       this.tick();
@@ -306,9 +308,9 @@ class Game {
 
   colliding(body1, body2) {
     return !(body1 === body2 ||
-            body1.x + body1.width/2 < body2.x - body2.width/2 ||
+            body1.x + (body1.width/2 + 6) < body2.x - body2.width/2 ||
             body1.y + body1.height/2 < body2.y - body2.height/2 + 6 ||
-            body1.x - body1.width/2 > body2.x + body2.width/2 ||
+            body1.x - (body1.width/2 - 6) > body2.x + body2.width/2 ||
             body1.y - body1.height/2 + 6 > body2.y + body2.height/2);
   }
 
@@ -363,14 +365,17 @@ class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* defa
   update(collisions) {
     this.game.scoreCtx.clearRect(0, 0, this.gameSize.x, this.gameSize.y);
     this.game.scoreCtx.font = "25px Coiny, sans-serif";
-    this.game.scoreCtx.fillText(`level: ${this.game.level+1}`,10,25);
-
-
+    this.game.scoreCtx.fillText(`level: ${this.game.level+1}`, 10, 25);
+    this.game.scoreCtx.fillText(`Score: ${this.game.score}`, 333, 25);
 
     collisions.forEach(e => {
       if (e.type === "enemy" && e.ignited) {
         this.isDead = true;
+        this.width = 34;        
         this.sprite = new __WEBPACK_IMPORTED_MODULE_2__sprite__["a" /* default */](this.img, 1, 45, 17, 19);
+      } else if (e.type === "gem") {
+        this.game.score += e.value;
+        e.lifeSpan = 0;
       }
     });
 
@@ -380,11 +385,17 @@ class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* defa
         if (this.x >= 0) {
           this.x -= 2;
           this.facing = 9;
+          // this.height = 48;
+          this.width = 46;
+          this.sprite = new __WEBPACK_IMPORTED_MODULE_2__sprite__["a" /* default */](this.img, 52, 64, 25, 22);
         }
       } else if (this.keyboarder.isDown(this.keyboarder.KEYS.RIGHT)) {
         if (this.x <= this.gameSize.x-17) {
           this.x += 2;
           this.facing = 3;
+          // this.height = 48;
+          this.width = 46;
+          this.sprite = new __WEBPACK_IMPORTED_MODULE_2__sprite__["a" /* default */](this.img, 77, 64, 25, 22);
         }
       }
 
@@ -392,26 +403,30 @@ class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* defa
         if (this.y >= 40 ){
           this.y -= 2;
           this.facing = 12;
+          this.width = 34;
+          this.sprite = new __WEBPACK_IMPORTED_MODULE_2__sprite__["a" /* default */](this.img, 1, 1, 17, 21);
         }
       } else if (this.keyboarder.isDown(this.keyboarder.KEYS.DOWN)) {
         if (this.y <= this.gameSize.y-34 ) {
           this.y += 2;
           this.facing = 6;
+          this.width = 34;
+          this.sprite = new __WEBPACK_IMPORTED_MODULE_2__sprite__["a" /* default */](this.img, 1, 22, 17, 21);          
         }
       }
       let time = Date.now();
-      if  (this.keyboarder.isDown(this.keyboarder.KEYS.SPACE) && (time-this.spaceDown > 500)) {
+      if  (this.keyboarder.isDown(this.keyboarder.KEYS.SPACE) && (time-this.spaceDown > 411)) {
         this.spaceDown = time;
         let splashPositionX = this.x + 3;
         let splashPositionY = this.y;
         if (this.facing === 12) {
-          splashPositionY -= 27;
+          splashPositionY -= 30;
         } else if (this.facing === 6) {
-          splashPositionY += 38;
+          splashPositionY += 40;
         } else if (this.facing === 3) {
-          splashPositionX += 34;
+          splashPositionX += 36;
         } else if (this.facing === 9) {
-          splashPositionX -= 24;
+          splashPositionX -= 26;
         }
         this.game.addBody(new __WEBPACK_IMPORTED_MODULE_3__water_splash__["a" /* default */](this.img, splashPositionX, splashPositionY));
       }
@@ -462,7 +477,7 @@ class Keyboarder {
 class WaterSplash extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* default */] {
   constructor(img, squirtleX, squirtleY) {
     const sprite = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 60, 0, 13, 13);
-    super('water', sprite, squirtleX, squirtleY, 26, 26, 18);
+    super('water', sprite, squirtleX, squirtleY, 28, 28, 18);
   }
 }
 
@@ -498,15 +513,23 @@ class TemporaryObject extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__small_gem__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__medium_gem__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__large_gem__ = __webpack_require__(11);
+
+
+
 
 
 
 class BounceFlame extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* default */] {
-  constructor(img, gameSize) {
+  constructor(img, gameSize, game) {
     // this.size = { x: 30, y: 38 };
     const sprites = [new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 90, 46, 15, 18),
                     new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 108, 46,15, 18),
-                    new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 126, 46, 15, 18)];
+                    new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 126, 46,15, 18),
+                    new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 144, 46,15, 18),
+                    new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 162, 46, 15, 18)];
     let xTrial = 30 + (gameSize.x-40)*Math.random();
     let yTrial = 65 + (gameSize.y-65)*Math.random();
     while (xTrial < 290
@@ -518,6 +541,7 @@ class BounceFlame extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* d
     }
     super('enemy', sprites[0], xTrial, yTrial, 30, 36);
 
+    this.game = game;
     this.sprites = sprites;
     this.spriteRotation = 0;
     this.spriteTicker = 0;
@@ -554,15 +578,15 @@ class BounceFlame extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* d
   update(collisions) {
     this.spriteTicker += 1;
     let bounce = false;
-    if (this.spriteTicker === 40 && this.ignited) {
+    if (this.spriteTicker >= 4 && this.ignited) {
       this.spriteTicker = 0;
-      this.spriteRotation = (this.spriteRotation + 1) % 3;
+      this.spriteRotation = (this.spriteRotation + 1) % 5;
       this.sprite = this.sprites[this.spriteRotation];
     }
     collisions.forEach(e => {
       if (e.type === "enemy" && e.ignited && this.x < 40 && this.y < 40) {
         bounce = true;
-      } else if (e.type === "water") {
+      } else if (e.type === "water" && this.ignited) {
         this.snuffedOut();
       }
     });
@@ -602,11 +626,163 @@ class BounceFlame extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* d
   snuffedOut() {
     this.ignited = false;
     this.sprite = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](this.img, 56, 47, 15, 14);
+    this.game.addBody(new __WEBPACK_IMPORTED_MODULE_4__large_gem__["a" /* default */](this.img, this.x, this.y));
   }
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (BounceFlame);
 
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+
+
+
+class SmallGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* default */] {
+  constructor(img, sootX, sootY) {
+    const start_gem = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 133, 17, 11, 11);
+    const sprites = [start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 133, 3, 11, 11),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 147, 3, 11, 11),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 161, 3, 11, 11),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 175, 3, 11, 11),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 189, 3, 11, 11),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 203, 3, 11, 11)];
+
+    super('gem', sprites[0], sootX, sootY, 22, 22, 200);
+
+    this.sprites = sprites;
+    this.spriteRotation = 0;
+    this.spriteTicker = 0;
+    this.value = 25;
+  }
+
+  update() {
+      super.update()
+      this.spriteTicker += 1;
+      if (this.spriteTicker >= 2) {
+        this.spriteTicker = 0;
+        this.spriteRotation = (this.spriteRotation + 1) % 17;
+        this.sprite = this.sprites[this.spriteRotation];
+      }
+  }
+}
+
+/* unused harmony default export */ var _unused_webpack_default_export = (SmallGem);
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+
+
+
+class MediumGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* default */] {
+  constructor(img, sootX, sootY) {
+    const start_gem = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 149, 19, 10, 18);
+    const sprites = [start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 162, 19, 10, 18),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 175, 19, 10, 18),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 188, 19, 10, 18),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 201, 19, 10, 18)];
+
+    super('gem', sprites[0], sootX, sootY, 15, 27, 200);
+
+    this.sprites = sprites;
+    this.spriteRotation = 0;
+    this.spriteTicker = 0;
+    this.value = 50;
+  }
+
+  update() {
+      super.update()
+      this.spriteTicker += 1;
+      if (this.spriteTicker >= 2) {
+        this.spriteTicker = 0;
+        this.spriteRotation = (this.spriteRotation + 1) % 15;
+        this.sprite = this.sprites[this.spriteRotation];
+      }
+  }
+}
+
+/* unused harmony default export */ var _unused_webpack_default_export = (MediumGem);
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+
+
+
+class LargeGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* default */] {
+  constructor(img, sootX, sootY) {
+    const start_gem = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 4, 130, 14, 14);
+    const sprites = [start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 21, 130, 14, 14),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 38, 130, 14, 14),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 55, 130, 14, 14)];
+
+    super('gem', sprites[0], sootX, sootY, 21, 21, 200);
+
+    this.sprites = sprites;
+    this.spriteRotation = 0;
+    this.spriteTicker = 0;
+    this.value = 50;
+  }
+
+  update() {
+      super.update()
+      this.spriteTicker += 1;
+      if (this.spriteTicker >= 2) {
+        this.spriteTicker = 0;
+        this.spriteRotation = (this.spriteRotation + 1) % 14;
+        this.sprite = this.sprites[this.spriteRotation];
+      }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (LargeGem);
 
 /***/ })
 /******/ ]);
