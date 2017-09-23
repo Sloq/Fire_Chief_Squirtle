@@ -131,7 +131,8 @@ class Master {
     });
   }
 
-  gameWon() {
+  gameWon(score) {
+    console.log(`You won on ${new Date().toDateString()} with a score of: ${score}`)
     this.overlay.font = "80px Coiny, sans-serif";
     this.overlay.fillText("You Win!",79,170);
     this.overlay.font = "20px Coiny, sans-serif";
@@ -147,7 +148,12 @@ class Master {
     });
   }
 
-  needRestart() {
+  // 0212e2f1c1fcad370dcb3454a4e655a8b41a0def26855225b3b80f8dbe67f990
+
+
+  needRestart(score) {
+    // const time = new Date().toDateString();
+    console.log(`Your Score on ${new Date().toDateString()}: ${score}`)    
     this.overlay.fillStyle = 'white';
     this.overlay.strokeStyle = 'black';
     this.overlay.lineWidth = 4;
@@ -277,7 +283,7 @@ class Game {
     }
     if (this.levelWon &&
       this.level+1 === this.levelEnemies.length) {
-        this.master.gameWon();
+        this.master.gameWon(this.score);
     } else if (this.levelWon) {
       this.level += 1;
       this.score += 1000;
@@ -295,7 +301,7 @@ class Game {
           clearInterval(interval);
         }
       }, 5);
-      this.master.needRestart();
+      this.master.needRestart(this.score);
     }
   }
 
@@ -308,9 +314,9 @@ class Game {
 
   colliding(body1, body2) {
     return !(body1 === body2 ||
-            body1.x + (body1.width/2 + 6) < body2.x - body2.width/2 ||
+            body1.x + (body1.width/2) < body2.x - body2.width/2 ||
             body1.y + body1.height/2 < body2.y - body2.height/2 + 6 ||
-            body1.x - (body1.width/2 - 6) > body2.x + body2.width/2 ||
+            body1.x - (body1.width/2 - 0) > body2.x + body2.width/2 ||
             body1.y - body1.height/2 + 6 > body2.y + body2.height/2);
   }
 
@@ -516,6 +522,8 @@ class TemporaryObject extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__small_gem__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__medium_gem__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__large_gem__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__diamond__ = __webpack_require__(12);
+
 
 
 
@@ -626,7 +634,15 @@ class BounceFlame extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* d
   snuffedOut() {
     this.ignited = false;
     this.sprite = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](this.img, 56, 47, 15, 14);
-    this.game.addBody(new __WEBPACK_IMPORTED_MODULE_4__large_gem__["a" /* default */](this.img, this.x, this.y));
+    if (this.game.level === 0 ) {
+      this.game.addBody(new __WEBPACK_IMPORTED_MODULE_2__small_gem__["a" /* default */](this.img, this.x, this.y));
+    } else if (this.game.level === 1 ) {
+      this.game.addBody(new __WEBPACK_IMPORTED_MODULE_3__medium_gem__["a" /* default */](this.img, this.x, this.y));
+    } else if (this.game.level === 2 ) {
+      this.game.addBody(new __WEBPACK_IMPORTED_MODULE_4__large_gem__["a" /* default */](this.img, this.x, this.y));
+    } else if (this.game.level === 3 ) {
+      this.game.addBody(new __WEBPACK_IMPORTED_MODULE_5__diamond__["a" /* default */](this.img, this.x, this.y));
+    }
   }
 }
 
@@ -683,7 +699,7 @@ class SmallGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* de
   }
 }
 
-/* unused harmony default export */ var _unused_webpack_default_export = (SmallGem);
+/* harmony default export */ __webpack_exports__["a"] = (SmallGem);
 
 /***/ }),
 /* 10 */
@@ -733,7 +749,7 @@ class MediumGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* d
   }
 }
 
-/* unused harmony default export */ var _unused_webpack_default_export = (MediumGem);
+/* harmony default export */ __webpack_exports__["a"] = (MediumGem);
 
 /***/ }),
 /* 11 */
@@ -768,7 +784,7 @@ class LargeGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* de
     this.sprites = sprites;
     this.spriteRotation = 0;
     this.spriteTicker = 0;
-    this.value = 50;
+    this.value = 75;
   }
 
   update() {
@@ -783,6 +799,56 @@ class LargeGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* de
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (LargeGem);
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+
+
+
+class Diamond extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* default */] {
+  constructor(img, sootX, sootY) {
+    const start_gem = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 3, 114, 15, 12);
+    const sprites = [start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 21, 114, 15, 12),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 39, 114, 15, 12),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 57, 114, 15, 12),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 75, 114, 15, 12)];
+
+    super('gem', sprites[0], sootX, sootY, 23, 18, 200);
+
+    this.sprites = sprites;
+    this.spriteRotation = 0;
+    this.spriteTicker = 0;
+    this.value = 100;
+  }
+
+  update() {
+      super.update()
+      this.spriteTicker += 1;
+      if (this.spriteTicker >= 2) {
+        this.spriteTicker = 0;
+        this.spriteRotation = (this.spriteRotation + 1) % 15;
+        this.sprite = this.sprites[this.spriteRotation];
+      }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Diamond);
 
 /***/ })
 /******/ ]);

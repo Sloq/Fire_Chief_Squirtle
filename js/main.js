@@ -21,7 +21,8 @@ class Master {
     });
   }
 
-  gameWon() {
+  gameWon(score) {
+    console.log(`You won on ${new Date().toDateString()} with a score of: ${score}`)
     this.overlay.font = "80px Coiny, sans-serif";
     this.overlay.fillText("You Win!",79,170);
     this.overlay.font = "20px Coiny, sans-serif";
@@ -37,7 +38,12 @@ class Master {
     });
   }
 
-  needRestart() {
+  // 0212e2f1c1fcad370dcb3454a4e655a8b41a0def26855225b3b80f8dbe67f990
+
+
+  needRestart(score) {
+    // const time = new Date().toDateString();
+    console.log(`Your Score on ${new Date().toDateString()}: ${score}`)    
     this.overlay.fillStyle = 'white';
     this.overlay.strokeStyle = 'black';
     this.overlay.lineWidth = 4;

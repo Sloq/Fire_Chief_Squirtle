@@ -87,7 +87,7 @@ class Game {
     }
     if (this.levelWon &&
       this.level+1 === this.levelEnemies.length) {
-        this.master.gameWon();
+        this.master.gameWon(this.score);
     } else if (this.levelWon) {
       this.level += 1;
       this.score += 1000;
@@ -105,7 +105,7 @@ class Game {
           clearInterval(interval);
         }
       }, 5);
-      this.master.needRestart();
+      this.master.needRestart(this.score);
     }
   }
 
@@ -118,9 +118,9 @@ class Game {
 
   colliding(body1, body2) {
     return !(body1 === body2 ||
-            body1.x + (body1.width/2 + 6) < body2.x - body2.width/2 ||
+            body1.x + (body1.width/2) < body2.x - body2.width/2 ||
             body1.y + body1.height/2 < body2.y - body2.height/2 + 6 ||
-            body1.x - (body1.width/2 - 6) > body2.x + body2.width/2 ||
+            body1.x - (body1.width/2 - 0) > body2.x + body2.width/2 ||
             body1.y - body1.height/2 + 6 > body2.y + body2.height/2);
   }
 

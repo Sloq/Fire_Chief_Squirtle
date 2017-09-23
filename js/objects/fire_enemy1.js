@@ -3,6 +3,7 @@ import Sprite from './sprite';
 import SmallGem from './small_gem';
 import MediumGem from './medium_gem';
 import LargeGem from './large_gem';
+import Diamond from './diamond';
 
 class BounceFlame extends MovingObjects {
   constructor(img, gameSize, game) {
@@ -108,7 +109,15 @@ class BounceFlame extends MovingObjects {
   snuffedOut() {
     this.ignited = false;
     this.sprite = new Sprite(this.img, 56, 47, 15, 14);
-    this.game.addBody(new LargeGem(this.img, this.x, this.y));
+    if (this.game.level === 0 ) {
+      this.game.addBody(new SmallGem(this.img, this.x, this.y));
+    } else if (this.game.level === 1 ) {
+      this.game.addBody(new MediumGem(this.img, this.x, this.y));
+    } else if (this.game.level === 2 ) {
+      this.game.addBody(new LargeGem(this.img, this.x, this.y));
+    } else if (this.game.level === 3 ) {
+      this.game.addBody(new Diamond(this.img, this.x, this.y));
+    }
   }
 }
 

@@ -24,7 +24,7 @@ class LargeGem extends TemporaryObject {
     this.sprites = sprites;
     this.spriteRotation = 0;
     this.spriteTicker = 0;
-    this.value = 50;
+    this.value = 75;
   }
 
   update() {
