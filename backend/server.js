@@ -23,12 +23,21 @@ app.post('/api', (req, res) => {
 // })
 
 var port = process.env.port || 3000;
-var db
+var db;
+var url;
+let env = process.env.NODE_ENV || 'development';
 
-MongoClient.connect('mongodb://localhost/FireChiefSquirtle', (err, database) => {
+if (env === 'development') {
+  url = "mongodb://localhost:27017/firechief";
+} else {
+  url = "mongodb://<dbuser>:<dbpassword>@ds062448.mlab.com:62448/firechief";
+}
+
+MongoClient.connect(url, (err, database) => {
   if (err) return console.log(err)
   db = database
   app.listen(port, () => {
+    console.log(url)
     console.log('listening on 3000')
   })
 })
