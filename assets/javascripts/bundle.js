@@ -60,11 +60,51 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Sprite {
+  constructor(img, srcX, srcY, srcW, srcH) {
+    this.img = img;
+    this.srcX = srcX;
+    this.srcY = srcY;
+    this.width = srcW;
+    this.height = srcH;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Sprite);
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(2);
+
+
+class TemporaryObject extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* default */] {
+  constructor(type, sprite, x, y, width, height, lifeSpan) {
+    super(type, sprite, x, y, width, height);
+    this.lifeSpan = lifeSpan;
+  }
+
+  update() {
+    this.lifeSpan -= 1;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (TemporaryObject);
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84,30 +124,12 @@ class MovingObjects {
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Sprite {
-  constructor(img, srcX, srcY, srcW, srcH) {
-    this.img = img;
-    this.srcX = srcX;
-    this.srcY = srcY;
-    this.width = srcW;
-    this.height = srcH;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Sprite);
-
-
-/***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_js__ = __webpack_require__(4);
 
 
 class Master {
@@ -188,11 +210,11 @@ window.onload = () => {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__ = __webpack_require__(8);
 
 
@@ -339,14 +361,14 @@ class Game {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__keyboarder__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__moving_objects__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sprite__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__water_splash__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__keyboarder__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__moving_objects__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sprite__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__water_splash__ = __webpack_require__(7);
 
 
 
@@ -444,7 +466,7 @@ class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* defa
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -471,19 +493,19 @@ class Keyboarder {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
 
 
 
 class WaterSplash extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* default */] {
   constructor(img, squirtleX, squirtleY) {
     const sprite = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 60, 0, 13, 13);
-    super('water', sprite, squirtleX, squirtleY, 28, 28, 18);
+    super('water', sprite, squirtleX, squirtleY, 30, 30, 18);
   }
 }
 
@@ -491,34 +513,12 @@ class WaterSplash extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /*
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(0);
-
-
-class TemporaryObject extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* default */] {
-  constructor(type, sprite, x, y, width, height, lifeSpan) {
-    super(type, sprite, x, y, width, height);
-    this.lifeSpan = lifeSpan;
-  }
-
-  update() {
-    this.lifeSpan -= 1;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (TemporaryObject);
-
-
-/***/ }),
 /* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__small_gem__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__medium_gem__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__large_gem__ = __webpack_require__(11);
@@ -654,8 +654,8 @@ class BounceFlame extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* d
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
 
 
 
@@ -706,8 +706,8 @@ class SmallGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* de
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
 
 
 
@@ -756,8 +756,8 @@ class MediumGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* d
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
 
 
 
@@ -805,8 +805,8 @@ class LargeGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* de
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
 
 
 
