@@ -1,5 +1,6 @@
 import Squirtle from './objects/squirtle';
 import BounceFlame from './objects/fire_enemy1';
+import BlackFire from './objects/black_fire';
 
 class Game {
   constructor(master) {
@@ -18,22 +19,21 @@ class Game {
       [new Squirtle(this, sprites, gameSize),
         new BounceFlame(sprites, gameSize, this),
         new BounceFlame(sprites, gameSize, this)],
-      // [new Squirtle(this, sprites, gameSize),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites, gameSize, this)],
-      // [new Squirtle(this, sprites, gameSize),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites, gameSize, this)],
-      // [new Squirtle(this, sprites, gameSize),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites, gameSize, this)]
+      [new Squirtle(this, sprites, gameSize),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites, gameSize, this)],
+      [new Squirtle(this, sprites, gameSize),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites, gameSize, this)],
+      [new Squirtle(this, sprites, gameSize),
+        new BlackFire(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites,gameSize, this),
+        new BounceFlame(sprites, gameSize, this)]
     ];
 
     this.levelEnemies = levelEnemies;

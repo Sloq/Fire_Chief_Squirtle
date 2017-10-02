@@ -136,8 +136,12 @@ class Master {
   constructor() {
     const consoleScreen = document.getElementById("console-canvas");
     const overlay = consoleScreen.getContext('2d');
-
     this.overlay = overlay;
+    this.userModal = document.getElementById("user-modal");
+    this.submitButton = document.getElementById("submit-button");
+    this.userTextarea = document.getElementById("input-textarea");
+    this.username = this.userTextarea.value;
+
     overlay.font = "40px Wendy One, sans-serif";
     overlay.fillText("Start New Game",110,150);
     overlay.font = "30px Wendy One, sans-serif";
@@ -151,23 +155,24 @@ class Master {
           that.game = new __WEBPACK_IMPORTED_MODULE_0__game_js__["a" /* default */](that);
         }
     });
+
+    this.userTextarea.addEventListener('input', (e) => {
+      this.userTextarea.value = this.userTextarea.value.replace(/[\n\r\t]/, '');
+      this.username = this.userTextarea.value;
+    })
   }
 
   gameWon(score) {
-    console.log(`You won on ${new Date().toDateString()} with a score of: ${score}`)
     this.overlay.font = "80px Coiny, sans-serif";
     this.overlay.fillText("You Win!",79,170);
     this.overlay.font = "20px Coiny, sans-serif";
     this.overlay.fillText("Press Enter To Start New Game",95,200);
 
+    this.userModal.style.display = "block";
     const that = this;
-    window.addEventListener('keypress', function capture(e) {
-        if (e.keyCode === 13) {
-          window.removeEventListener('keypress', capture, false);
-          that.overlay.clearRect(0, 0, 500, 350);
-          that.game = new __WEBPACK_IMPORTED_MODULE_0__game_js__["a" /* default */](that);
-        }
-    });
+    
+    console.log(`${this.username} won on ${new Date().toDateString()} with a score of: ${score}`)
+
   }
 
   // 0212e2f1c1fcad370dcb3454a4e655a8b41a0def26855225b3b80f8dbe67f990
@@ -175,29 +180,33 @@ class Master {
 
   needRestart(score) {
     // const time = new Date().toDateString();
-    console.log(`Your Score on ${new Date().toDateString()}: ${score}`)    
     this.overlay.fillStyle = 'white';
     this.overlay.strokeStyle = 'black';
     this.overlay.lineWidth = 4;
     this.overlay.font = "55px Coiny, sans-serif";
     this.overlay.fillText("Game Over",105,140);
     this.overlay.strokeText('Game Over', 105, 140);
-
+    
     this.overlay.fillStyle = 'white';
     this.overlay.strokeStyle = 'black';
     this.overlay.lineWidth = 2;
     this.overlay.font = "35px Coiny, sans-serif";
     this.overlay.fillText("Press Enter To Restart",60,180);
     this.overlay.strokeText("Press Enter To Restart",60,180);
-
+    this.userModal.style.display = "block";
     const that = this;
-    window.addEventListener('keypress', function capture(e) {
+    this.submitButton.onclick = () => {
+      this.userModal.style.display = "none";
+      console.log(`${this.username} scored on ${new Date().toDateString()}: ${score}`)    
+      window.addEventListener('keypress', function capture(e) {
         if (e.keyCode === 13) {
           window.removeEventListener('keypress', capture, false);
           that.overlay.clearRect(0, 0, 500, 350);
           that.game = new __WEBPACK_IMPORTED_MODULE_0__game_js__["a" /* default */](that);
         }
-    });
+     });
+    }
+    
   }
 
 }
@@ -216,6 +225,8 @@ window.onload = () => {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objects_black_fire__ = __webpack_require__(13);
+
 
 
 
@@ -236,22 +247,21 @@ class Game {
       [new __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__["a" /* default */](this, sprites, gameSize),
         new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize, this),
         new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize, this)],
-      // [new Squirtle(this, sprites, gameSize),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites, gameSize, this)],
-      // [new Squirtle(this, sprites, gameSize),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites, gameSize, this)],
-      // [new Squirtle(this, sprites, gameSize),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites,gameSize, this),
-      //   new BounceFlame(sprites, gameSize, this)]
+      [new __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__["a" /* default */](this, sprites, gameSize),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize, this)],
+      [new __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__["a" /* default */](this, sprites, gameSize),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize, this)],
+      [new __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__["a" /* default */](this, sprites, gameSize),
+        new __WEBPACK_IMPORTED_MODULE_2__objects_black_fire__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites,gameSize, this),
+        new __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__["a" /* default */](sprites, gameSize, this)]
     ];
 
     this.levelEnemies = levelEnemies;
@@ -849,6 +859,124 @@ class Diamond extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* def
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Diamond);
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__diamond__ = __webpack_require__(12);
+
+
+
+
+class BlackFire extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* default */] {
+  constructor(img, gameSize, game) {
+    // this.size = { x: 30, y: 38 };
+    const sprites = [new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 180, 46, 15, 18),
+                    new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 198, 46,15, 18),
+                    new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 216, 46,15, 18),
+                    new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 234, 46,15, 18),
+                    new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 252, 46, 15, 18)];
+    let xTrial = 35;
+    let yTrial = 300;
+  
+    super('enemy', sprites[0], xTrial, yTrial, 30, 36);
+
+    this.game = game;
+    this.sprites = sprites;
+    this.spriteRotation = 0;
+    this.spriteTicker = 0;
+    let speedX = 2;
+    let speedY = 2;
+
+    if (this.x > gameSize.x/2) {
+      speedX = speedX;
+    } else {
+      speedX = -speedX;
+    }
+
+    if (this.y > gameSize.y/2) {
+      speedY = speedY;
+    } else {
+      speedY = -speedY;
+    }
+    this.img = img;
+    this.speedX = speedX;
+    this.speedY = speedY;
+    this.gameSize = gameSize;
+    this.ignited = true;
+    this.canBounce = 16;
+  }
+
+  reignite() {
+    if (this.x <= 15 && this.y <= 65) {
+      this.ignited = true;
+      this.sprite = this.sprites[0];
+      this.speedX = 2*Math.ceil(2*Math.random());
+      this.speedY = 2*Math.ceil(2*Math.random());
+    }
+  }
+
+  update(collisions) {
+    this.spriteTicker += 1;
+    let bounce = false;
+    this.canBounce++;
+    if (this.spriteTicker >= 4 && this.ignited ) {
+      this.spriteTicker = 0;
+      this.spriteRotation = (this.spriteRotation + 1) % 5;
+      this.sprite = this.sprites[this.spriteRotation];
+    }
+    collisions.forEach(e => {
+      if (e.type === "enemy" && e.ignited && this.x > 30 && this.y > 50 && this.canBounce > 15) {
+        bounce = true;
+        this.canBounce = 0;
+      } else if (e.type === "water" && this.ignited) {
+        this.snuffedOut();
+      } 
+    });
+    if (this.ignited) {
+      if (this.x <= 0 || bounce) {
+        this.speedX = -this.speedX;
+      } else if (this.x >= this.gameSize.x-23) {
+        this.speedX = -this.speedX;
+      }
+
+      if (this.y <= 35 || bounce) {
+        this.speedY = -this.speedY;
+      } else if (this.y >= this.gameSize.y-35) {
+        this.speedY = -this.speedY;
+      }
+    } else {
+      this.aimForHome();
+    }
+    this.reignite();
+    this.x += this.speedX;
+    this.y += this.speedY;
+  }
+
+  aimForHome() {
+    this.speedY = 0;
+    this.speedX = 0;
+    if (this.x > 5) {
+      this.x -= 1;
+    }
+    if (this.y > 65) {
+      this.y -= 1;
+    }
+  }
+
+  snuffedOut() {
+    this.ignited = false;
+    this.sprite = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](this.img, 56, 47, 15, 14);
+    this.game.addBody(new __WEBPACK_IMPORTED_MODULE_2__diamond__["a" /* default */](this.img, this.x, this.y));
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (BlackFire);
+
 
 /***/ })
 /******/ ]);
