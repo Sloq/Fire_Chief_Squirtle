@@ -139,19 +139,25 @@ canvas {
 }
 
 .lower-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact {
   width: 100%;
   z-index: 1;
   display: flex;
   justify-content: center;
 }
 
-.lower-page img {
+.contact img {
   width: 50px;
   height: auto;
   margin: 10px;
 }
 
-.lower-page a {
+.contact a {
   text-decoration: none;
 }
 

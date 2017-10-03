@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -128,8 +128,58 @@ class MovingObjects {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
+
+
+
+class Diamond extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* default */] {
+  constructor(img, sootX, sootY) {
+    const start_gem = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 3, 114, 15, 12);
+    const sprites = [start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        start_gem,
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 21, 114, 15, 12),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 39, 114, 15, 12),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 57, 114, 15, 12),
+        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 75, 114, 15, 12)];
+
+    super('gem', sprites[0], sootX, sootY, 23, 18, 200);
+
+    this.sprites = sprites;
+    this.spriteRotation = 0;
+    this.spriteTicker = 0;
+    this.value = 100;
+  }
+
+  update() {
+      super.update()
+      this.spriteTicker += 1;
+      if (this.spriteTicker >= 2) {
+        this.spriteTicker = 0;
+        this.spriteRotation = (this.spriteRotation + 1) % 15;
+        this.sprite = this.sprites[this.spriteRotation];
+      }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Diamond);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_js__ = __webpack_require__(5);
 
 
 class Master {
@@ -219,12 +269,12 @@ window.onload = () => {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_squirtle__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_fire_enemy1__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objects_black_fire__ = __webpack_require__(13);
 
 
@@ -371,14 +421,14 @@ class Game {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__keyboarder__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__keyboarder__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__moving_objects__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sprite__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__water_splash__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__water_splash__ = __webpack_require__(8);
 
 
 
@@ -419,7 +469,7 @@ class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* defa
 
     let spaceDown = false;
     if (!this.isDead) {
-      if (this.keyboarder.isDown(this.keyboarder.KEYS.LEFT)) {
+      if (this.keyboarder.isDown(this.keyboarder.KEYS.LEFT) || this.keyboarder.isDown(this.keyboarder.KEYS.LEFTA)) {
         if (this.x >= 0) {
           this.x -= 2;
           this.facing = 9;
@@ -427,7 +477,7 @@ class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* defa
           this.width = 46;
           this.sprite = new __WEBPACK_IMPORTED_MODULE_2__sprite__["a" /* default */](this.img, 52, 64, 25, 22);
         }
-      } else if (this.keyboarder.isDown(this.keyboarder.KEYS.RIGHT)) {
+      } else if (this.keyboarder.isDown(this.keyboarder.KEYS.RIGHT)||this.keyboarder.isDown(this.keyboarder.KEYS.RIGHTA)) {
         if (this.x <= this.gameSize.x-17) {
           this.x += 2;
           this.facing = 3;
@@ -437,14 +487,14 @@ class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* defa
         }
       }
 
-      if (this.keyboarder.isDown(this.keyboarder.KEYS.UP)) {
+      if (this.keyboarder.isDown(this.keyboarder.KEYS.UP)||this.keyboarder.isDown(this.keyboarder.KEYS.UPA)) {
         if (this.y >= 40 ){
           this.y -= 2;
           this.facing = 12;
           this.width = 34;
           this.sprite = new __WEBPACK_IMPORTED_MODULE_2__sprite__["a" /* default */](this.img, 1, 1, 17, 21);
         }
-      } else if (this.keyboarder.isDown(this.keyboarder.KEYS.DOWN)) {
+      } else if (this.keyboarder.isDown(this.keyboarder.KEYS.DOWN)||this.keyboarder.isDown(this.keyboarder.KEYS.DOWNA)) {
         if (this.y <= this.gameSize.y-34 ) {
           this.y += 2;
           this.facing = 6;
@@ -476,18 +526,30 @@ class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* defa
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 class Keyboarder {
   constructor() {
     const keyState = {};
-    const KEYS = { LEFT: 65, UP: 87, RIGHT: 68, DOWN: 83, SPACE: 32 };
+    const KEYS = { LEFT: 65,
+      LEFTA: 37,
+      UP: 38,
+      UPA: 87,
+      RIGHT: 68,
+      RIGHTA: 39,
+      DOWN: 83,
+      DOWNA: 40,
+      SPACE: 32,
+    };
     this.keyState = keyState;
     this.KEYS = KEYS;
     window.addEventListener('keydown', (e) => {
-        keyState[e.keyCode] = true;
+      if ((e.keyCode == 32||e.keyCode == 37||e.keyCode==38||e.keyCode==39||e.keyCode==40) && e.target == document.body) {
+        e.preventDefault();
+      }
+      keyState[e.keyCode] = true;
     });
     window.addEventListener('keyup', (e) => {
         keyState[e.keyCode] = false;
@@ -503,7 +565,7 @@ class Keyboarder {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -523,16 +585,16 @@ class WaterSplash extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /*
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__small_gem__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__medium_gem__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__large_gem__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__diamond__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__small_gem__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__medium_gem__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__large_gem__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__diamond__ = __webpack_require__(3);
 
 
 
@@ -660,7 +722,7 @@ class BounceFlame extends __WEBPACK_IMPORTED_MODULE_0__moving_objects__["a" /* d
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -712,7 +774,7 @@ class SmallGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* de
 /* harmony default export */ __webpack_exports__["a"] = (SmallGem);
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -762,7 +824,7 @@ class MediumGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* d
 /* harmony default export */ __webpack_exports__["a"] = (MediumGem);
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -811,63 +873,13 @@ class LargeGem extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* de
 /* harmony default export */ __webpack_exports__["a"] = (LargeGem);
 
 /***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__temporary_object__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
-
-
-
-class Diamond extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* default */] {
-  constructor(img, sootX, sootY) {
-    const start_gem = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 3, 114, 15, 12);
-    const sprites = [start_gem,
-        start_gem,
-        start_gem,
-        start_gem,
-        start_gem,
-        start_gem,
-        start_gem,
-        start_gem,
-        start_gem,
-        start_gem,
-        start_gem,
-        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 21, 114, 15, 12),
-        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 39, 114, 15, 12),
-        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 57, 114, 15, 12),
-        new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 75, 114, 15, 12)];
-
-    super('gem', sprites[0], sootX, sootY, 23, 18, 200);
-
-    this.sprites = sprites;
-    this.spriteRotation = 0;
-    this.spriteTicker = 0;
-    this.value = 100;
-  }
-
-  update() {
-      super.update()
-      this.spriteTicker += 1;
-      if (this.spriteTicker >= 2) {
-        this.spriteTicker = 0;
-        this.spriteRotation = (this.spriteRotation + 1) % 15;
-        this.sprite = this.sprites[this.spriteRotation];
-      }
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Diamond);
-
-/***/ }),
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_objects__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprite__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__diamond__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__diamond__ = __webpack_require__(3);
 
 
 

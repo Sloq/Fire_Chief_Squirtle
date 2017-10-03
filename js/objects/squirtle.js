@@ -38,7 +38,7 @@ class Squirtle extends MovingObjects {
 
     let spaceDown = false;
     if (!this.isDead) {
-      if (this.keyboarder.isDown(this.keyboarder.KEYS.LEFT)) {
+      if (this.keyboarder.isDown(this.keyboarder.KEYS.LEFT) || this.keyboarder.isDown(this.keyboarder.KEYS.LEFTA)) {
         if (this.x >= 0) {
           this.x -= 2;
           this.facing = 9;
@@ -46,7 +46,7 @@ class Squirtle extends MovingObjects {
           this.width = 46;
           this.sprite = new Sprite(this.img, 52, 64, 25, 22);
         }
-      } else if (this.keyboarder.isDown(this.keyboarder.KEYS.RIGHT)) {
+      } else if (this.keyboarder.isDown(this.keyboarder.KEYS.RIGHT)||this.keyboarder.isDown(this.keyboarder.KEYS.RIGHTA)) {
         if (this.x <= this.gameSize.x-17) {
           this.x += 2;
           this.facing = 3;
@@ -56,14 +56,14 @@ class Squirtle extends MovingObjects {
         }
       }
 
-      if (this.keyboarder.isDown(this.keyboarder.KEYS.UP)) {
+      if (this.keyboarder.isDown(this.keyboarder.KEYS.UP)||this.keyboarder.isDown(this.keyboarder.KEYS.UPA)) {
         if (this.y >= 40 ){
           this.y -= 2;
           this.facing = 12;
           this.width = 34;
           this.sprite = new Sprite(this.img, 1, 1, 17, 21);
         }
-      } else if (this.keyboarder.isDown(this.keyboarder.KEYS.DOWN)) {
+      } else if (this.keyboarder.isDown(this.keyboarder.KEYS.DOWN)||this.keyboarder.isDown(this.keyboarder.KEYS.DOWNA)) {
         if (this.y <= this.gameSize.y-34 ) {
           this.y += 2;
           this.facing = 6;
