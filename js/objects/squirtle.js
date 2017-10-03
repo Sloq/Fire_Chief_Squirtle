@@ -79,11 +79,11 @@ class Squirtle extends MovingObjects {
         if (this.facing === 12) {
           splashPositionY -= 30;
         } else if (this.facing === 6) {
-          splashPositionY += 40;
+          splashPositionY += 30;
         } else if (this.facing === 3) {
           splashPositionX += 36;
         } else if (this.facing === 9) {
-          splashPositionX -= 26;
+          splashPositionX -= 32;
         }
         this.game.addBody(new WaterSplash(this.img, splashPositionX, splashPositionY));
       }

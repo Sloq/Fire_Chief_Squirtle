@@ -396,10 +396,10 @@ class Game {
 
   colliding(body1, body2) {
     return !(body1 === body2 ||
-            body1.x + (body1.width/2) < body2.x - body2.width/2 ||
-            body1.y + body1.height/2 < body2.y - body2.height/2 + 6 ||
-            body1.x - (body1.width/2 - 0) > body2.x + body2.width/2 ||
-            body1.y - body1.height/2 + 6 > body2.y + body2.height/2);
+            body1.x + (body1.width/3) < body2.x - body2.width/3 ||
+            body1.y + body1.height/3 < body2.y - body2.height/3 ||
+            body1.x - (body1.width/3) > body2.x + body2.width/3 ||
+            body1.y - body1.height/3 > body2.y + body2.height/3);
   }
 
   drawImage(screen, body) {
@@ -510,11 +510,11 @@ class Squirtle extends __WEBPACK_IMPORTED_MODULE_1__moving_objects__["a" /* defa
         if (this.facing === 12) {
           splashPositionY -= 30;
         } else if (this.facing === 6) {
-          splashPositionY += 40;
+          splashPositionY += 30;
         } else if (this.facing === 3) {
           splashPositionX += 36;
         } else if (this.facing === 9) {
-          splashPositionX -= 26;
+          splashPositionX -= 32;
         }
         this.game.addBody(new __WEBPACK_IMPORTED_MODULE_3__water_splash__["a" /* default */](this.img, splashPositionX, splashPositionY));
       }
@@ -576,8 +576,8 @@ class Keyboarder {
 
 class WaterSplash extends __WEBPACK_IMPORTED_MODULE_0__temporary_object__["a" /* default */] {
   constructor(img, squirtleX, squirtleY) {
-    const sprite = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 60, 0, 13, 13);
-    super('water', sprite, squirtleX, squirtleY, 30, 30, 18);
+    const sprite = new __WEBPACK_IMPORTED_MODULE_1__sprite__["a" /* default */](img, 58, 0, 16, 16);
+    super('water', sprite, squirtleX, squirtleY, 32, 32, 18);
   }
 }
 
