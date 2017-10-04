@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient
 const config = require('./config');
@@ -11,21 +12,32 @@ const USER = config.user;
 // })
 
 app.use(bodyParser.json())
+app.use(cors())
 
-app.get('/api', (req, res) => {
-    res.sendFile(__dirname + ('/index.html'));
-})
-
-app.post('/api', (req, res) => {
-    console.log(req.body);
-    res.send(req.body);
-})
-
-app.post('/api/scores', (req, res) => {
-  db.collection('scores').save(req.body, (err, result) => {
+app.get('/api/scores', (req, res) => {
+  db.collection('scores').find().sort({score:-1}).limit(5).toArray((err, result) => {
     if (err) return console.log(err)
-    console.log('Score saved to database')
-    res.send('Score Saved')
+    res.send({scores: result});
+    console.log({TopScores: result});
+  })
+})
+      
+app.post('/api/scores', (req, res) => {
+  db.collection('scores').save(req.body)
+  .then(console.log(req.body))
+  .then(db.collection('scores').find({name: req.body.name}).sort({score:-1}).limit(5).toArray((err, result) => {
+    if (err) {
+      return console.log(err)
+    }
+    res.send({scores: result})
+  }))
+})
+
+app.get('/api/scores/:name', (req, res) => {
+  db.collection('scores').find({name: req.params.name}).sort({score:-1}).limit(5).toArray((err, result) => {
+    console.log(req.params.name)
+    if (err) return console.log(err)
+    res.send({scores: result})
   })
 })
 

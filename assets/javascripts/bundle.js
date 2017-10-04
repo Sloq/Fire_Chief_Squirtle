@@ -191,6 +191,7 @@ class Master {
     this.submitButton = document.getElementById("submit-button");
     this.userTextarea = document.getElementById("input-textarea");
     this.username = this.userTextarea.value;
+    this.leaderList = document.getElementById("leader-list");
 
     overlay.font = "40px Wendy One, sans-serif";
     overlay.fillText("Start New Game",110,150);
@@ -198,6 +199,18 @@ class Master {
     overlay.fillText("Press Enter",170,180);
 
     const that = this;
+
+    fetch("http://localhost:3000/api/scores",  {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      }
+    })
+    .then((res) => res.json())
+    .then((response) => console.log(response))
+    .catch(error => { console.log('request failed', error); });
+
+
     window.addEventListener('keypress', function capture(e) {
         if (e.keyCode === 13) {
           window.removeEventListener('keypress', capture, false);
@@ -247,14 +260,38 @@ class Master {
     const that = this;
     this.submitButton.onclick = () => {
       this.userModal.style.display = "none";
-      console.log(`${this.username} scored on ${new Date().toDateString()}: ${score}`)    
+      console.log(`${this.username} scored on ${new Date().toDateString()}: ${score}`)
+      var myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json');
+      fetch(`http://localhost:3000/api/scores`, {
+        method: "POST",
+        headers: {
+          'Content-Type':'application/json',
+        },
+        mode: "cors",
+        cache: 'default',        
+        body: JSON.stringify({
+          "name": that.username,
+          "score": score
+        })
+      })
+      // .then(fetch(`http://localhost:3000/api/scores/${that.username}`, {
+      //   method: "GET",
+      //   headers: {
+      //     "Accept": "application/json"
+      //   }
+      // })).then((res) => res.json())
+      .then(console.log(`${that.username}:${score}`))
+      .then((res) => res.json())
+      .then((response) => console.log(response))
+      .catch(error => { console.log('request failed', error); });  
       window.addEventListener('keypress', function capture(e) {
         if (e.keyCode === 13) {
           window.removeEventListener('keypress', capture, false);
           that.overlay.clearRect(0, 0, 500, 350);
           that.game = new __WEBPACK_IMPORTED_MODULE_0__game_js__["a" /* default */](that);
         }
-     });
+     })
     }
     
   }
