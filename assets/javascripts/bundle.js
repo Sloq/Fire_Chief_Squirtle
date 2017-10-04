@@ -191,7 +191,8 @@ class Master {
     this.submitButton = document.getElementById("submit-button");
     this.userTextarea = document.getElementById("input-textarea");
     this.username = this.userTextarea.value;
-    this.leaderList = document.getElementById("leader-list");
+    this.leaderScoreboard = document.getElementById("leader-board");
+    this.userScoreboard = document.getElementById("user-scoreboard");
 
     overlay.font = "40px Wendy One, sans-serif";
     overlay.fillText("Start New Game",110,150);
@@ -202,14 +203,18 @@ class Master {
 
     fetch("https://firechiefsquirtle.herokuapp.com/api/scores",  {
       method: "GET",
-      // mode: "cors",
-      // cache: 'default',
       headers: {
         "Accept": "application/json"
       }
     })
     .then((res) => res.json())
-    .then((response) => console.log(response))
+    .then((response) => {
+      for (let i = 0; i < response.scores.length; i++) {
+        let item = document.createElement('li');
+        item.appendChild(document.createTextNode(`${response.scores[i].name}: ${response.scores[i].score}`));
+        this.leaderScoreboard.appendChild(item);
+      }
+    })
     .catch(error => { console.log('request failed', error); });
 
 
@@ -253,7 +258,15 @@ class Master {
         })
       })
       .then((res) => res.json())
-      .then((response) => console.log(response))
+      .then((response) => {
+        this.userScoreboard.innerHTML = response.scores[0].name
+        for (let i = 0; i < response.scores.length; i++) {
+          let item = document.createElement('li');
+          item.appendChild(document.createTextNode(`${response.scores[i].score}`));
+          this.userScoreboard.appendChild(item);
+        }
+        return response
+      })
       .catch(error => { console.log('request failed', error); });  
       window.addEventListener('keypress', function capture(e) {
         if (e.keyCode === 13) {
@@ -299,7 +312,15 @@ class Master {
         })
       })
       .then((res) => res.json())
-      .then((response) => console.log(response))
+      .then((response) => {
+        this.userScoreboard.innerHTML = response.scores[0].name
+        for (let i = 0; i < response.scores.length; i++) {
+          let item = document.createElement('li');
+          item.appendChild(document.createTextNode(`${response.scores[i].score}`));
+          this.userScoreboard.appendChild(item);
+        }
+        return response
+      })
       .catch(error => { console.log('request failed', error); });  
       window.addEventListener('keypress', function capture(e) {
         if (e.keyCode === 13) {

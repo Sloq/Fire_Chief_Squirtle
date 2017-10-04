@@ -41,7 +41,7 @@ app.get('/api/scores/:name', (req, res) => {
   })
 })
 
-var port = process.env.port || 3000;
+var port = process.env.PORT || 3000;
 var db;
 var url;
 let env = process.env.NODE_ENV || 'development';

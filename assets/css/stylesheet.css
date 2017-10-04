@@ -218,3 +218,22 @@ canvas {
   text-decoration: none;
   cursor: pointer;
 }
+
+.leader-div {
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  justify-content: space-between;
+  font-size: 22px;
+}
+
+.leader-div ol {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  font-weight: 600;
+}
+
+.leader-div ol li {
+  font-weight: normal;
+}
