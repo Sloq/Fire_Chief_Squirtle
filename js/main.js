@@ -18,8 +18,10 @@ class Master {
 
     const that = this;
 
-    fetch("http://localhost:3000/api/scores",  {
+    fetch("https://firechiefsquirtle.herokuapp.com/api/scores",  {
       method: "GET",
+      // mode: "cors",
+      // cache: 'default',
       headers: {
         "Accept": "application/json"
       }
@@ -51,13 +53,36 @@ class Master {
 
     this.userModal.style.display = "block";
     const that = this;
-    
     console.log(`${this.username} won on ${new Date().toDateString()} with a score of: ${score}`)
 
+    this.submitButton.onclick = () => {
+      this.userModal.style.display = "none";
+      console.log(`${this.username} scored on ${new Date().toDateString()}: ${score}`)
+      fetch(`https://firechiefsquirtle.herokuapp.com/api/scores`, {
+        method: "POST",
+        headers: {
+          'Content-Type':'application/json',
+        },
+        mode: "cors",
+        cache: 'default',        
+        body: JSON.stringify({
+          "name": that.username,
+          "score": score
+        })
+      })
+      .then((res) => res.json())
+      .then((response) => console.log(response))
+      .catch(error => { console.log('request failed', error); });  
+      window.addEventListener('keypress', function capture(e) {
+        if (e.keyCode === 13) {
+          window.removeEventListener('keypress', capture, false);
+          that.overlay.clearRect(0, 0, 500, 350);
+          that.game = new Game(that);
+        }
+     })
+    }
+
   }
-
-  // 0212e2f1c1fcad370dcb3454a4e655a8b41a0def26855225b3b80f8dbe67f990
-
 
   needRestart(score) {
     // const time = new Date().toDateString();
@@ -79,9 +104,7 @@ class Master {
     this.submitButton.onclick = () => {
       this.userModal.style.display = "none";
       console.log(`${this.username} scored on ${new Date().toDateString()}: ${score}`)
-      var myHeaders = new Headers();
-      myHeaders.append('Content-Type', 'application/json');
-      fetch(`http://localhost:3000/api/scores`, {
+      fetch(`https://firechiefsquirtle.herokuapp.com/api/scores`, {
         method: "POST",
         headers: {
           'Content-Type':'application/json',
@@ -93,13 +116,6 @@ class Master {
           "score": score
         })
       })
-      // .then(fetch(`http://localhost:3000/api/scores/${that.username}`, {
-      //   method: "GET",
-      //   headers: {
-      //     "Accept": "application/json"
-      //   }
-      // })).then((res) => res.json())
-      .then(console.log(`${that.username}:${score}`))
       .then((res) => res.json())
       .then((response) => console.log(response))
       .catch(error => { console.log('request failed', error); });  

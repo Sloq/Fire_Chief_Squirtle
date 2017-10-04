@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient
 const config = require('./config');
 const PASSWORD = config.password;
-const USER = config.user;
+const USER = config.username;
 
 // app.get('/', (req, res) => {
 //     res.send("Hello World")
@@ -18,7 +18,7 @@ app.get('/api/scores', (req, res) => {
   db.collection('scores').find().sort({score:-1}).limit(5).toArray((err, result) => {
     if (err) return console.log(err)
     res.send({scores: result});
-    console.log({TopScores: result});
+    // console.log({TopScores: result});
   })
 })
       
@@ -35,7 +35,7 @@ app.post('/api/scores', (req, res) => {
 
 app.get('/api/scores/:name', (req, res) => {
   db.collection('scores').find({name: req.params.name}).sort({score:-1}).limit(5).toArray((err, result) => {
-    console.log(req.params.name)
+    // console.log(req.params.name)
     if (err) return console.log(err)
     res.send({scores: result})
   })
@@ -56,7 +56,7 @@ MongoClient.connect(url, (err, database) => {
   if (err) return console.log(err)
   db = database
   app.listen(port, () => {
-    console.log(url)
+    // console.log(url)
     console.log('listening on 3000')
   })
 })
