@@ -2,7 +2,7 @@
 
 [Play it Here](https://sloq.github.io/Fire_Chief_Squirtle/)
 
-Fire Chief Squirtle is a JavaScript game inspired by The Legend of Zelda.
+Fire Chief Squirtle is a JavaScript game inspired by classic console games such as The Legend of Zelda.
 
 ![Fire Chief Squirtle Gif](docs/squirtle.gif)
 
@@ -10,18 +10,20 @@ Fire Chief Squirtle is a JavaScript game inspired by The Legend of Zelda.
 
 | Action     | Key Input      |
 |:----------:|:--------------:|
-| Move Left  | 'A'            |
-| Move Right | 'D'            |
-| Move Up    | 'W'            |
-| Move Down  | 'S'            |
-| Shoot Water| Spacebar       |
-| Restart    | Enter          |
+| Move Left  | 'A' & Left Arrow |
+| Move Right | 'D' & Right Arrow|
+| Move Up    | 'W' & Up Arrow   |
+| Move Down  | 'S' & Down Arrow |
+| Shoot Water| Spacebar         |
+| Restart    | Enter            |
 
 ## Technologies Used
 Fire Chief Squirtle was build with the following technologies
 * Vanilla JavaScript for game mechanics
-* CSS3 for page layout
 * HTML Canvas for rendering of the game
+* Node.js for the backend
+* MongodDB server
+* CSS3 for page layout
 * Webpack to bundle and serve the multiple scripts used
 
 
@@ -43,9 +45,10 @@ if  (this.keyboarder.isDown(this.keyboarder.KEYS.SPACE) && (time-this.spaceDown 
   let splashPositionX = this.x + 3;
   let splashPositionY = this.y;
 ```
+The backend was built with Node.js and serves responses from a MongoDB database.
 
 ## Future Features
 
 * New enemy classes that employ different/more complex logic
 * Add sound effects and background music
-* Have extinguished enemies drop gems that can power up Squirtle until it evolves and upgrades his water splash
+* Have gems power up Squirtle to upgrades it's water splash
