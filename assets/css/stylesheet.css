@@ -6,9 +6,11 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 1100px;
   align-items: center;
   background-image: url('../img/rainbow_track.jpg');
-  background-size: cover;
+  background-size: 100%;
 }
 
 body img {
@@ -33,7 +35,7 @@ canvas {
 }
 
 .canvases * {
-  position:absolute;
+  position: absolute;
 }
 
 @font-face {
@@ -76,8 +78,7 @@ canvas {
 .main-page {
   padding: 30px;
   padding-top: 15px;
-  width: 95%;
-  min-width: 700px;
+  min-width: 1040px;
   height: 350px;
   display: flex;
   justify-content: center;
@@ -104,9 +105,7 @@ canvas {
   z-index: 2;
   width: 100px;
   height: 350px;
-  overflow: hidden;
   color: white;
-
 }
 
 .right-sidebar div p {
@@ -170,7 +169,6 @@ canvas {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
 }
@@ -180,7 +178,6 @@ canvas {
   background-color: #fefefe;
   margin: 20% auto; /* 15% from the top and centered */
   padding: 20px;
-  /* font-size: 26px; */
   border: 1px solid #888;
   min-width: 200px;
   max-width: 400px;
@@ -221,10 +218,8 @@ canvas {
 
 .leader-div {
   display: flex;
-  flex-direction: row;
-  width: 400px;
-  justify-content: space-between;
   font-size: 22px;
+  padding: 5px;
 }
 
 .leader-div ol {
@@ -232,6 +227,7 @@ canvas {
   text-align: center;
   flex-direction: column;
   font-weight: 600;
+  padding: 5px;
 }
 
 .leader-div ol li {
