@@ -220,6 +220,7 @@ canvas {
   display: flex;
   font-size: 22px;
   padding: 5px;
+  padding-left: 24px;
 }
 
 .leader-div ol {
