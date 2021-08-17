@@ -52,3 +52,4 @@ The backend was built with Node.js and serves responses from a MongoDB database.
 * New enemy classes that employ different/more complex logic
 * Add sound effects and background music
 * Have gems power up Squirtle to upgrades it's water splash
+* Smoother transitions
