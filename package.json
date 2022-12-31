@@ -15,6 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "preload-js": "^0.6.3",
-    "webpack": "^3.3.0"
+    "webpack": "^5.75.0"
   }
 }
