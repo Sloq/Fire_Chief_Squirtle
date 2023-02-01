@@ -19,7 +19,7 @@ class Master {
 
     const that = this;
 
-    fetch("http://localhost:3001/scores",  {
+    fetch("https://squirtlenode.fly.dev/scores",  {
       method: "GET",
       headers: {
         "Accept": "application/json"
@@ -65,7 +65,7 @@ class Master {
       this.userModal.style.display = "none";
       console.log(`${this.username} scored on ${new Date().toDateString()}: ${score}`)
       // fetch(`https://firechiefsquirtle.herokuapp.com/api/scores`, {
-      fetch(`http://localhost:3001/scores`, {
+      fetch(`https://squirtlenode.fly.dev/scores`, {
         method: "POST",
         headers: {
           'Content-Type':'application/json',
@@ -120,7 +120,7 @@ class Master {
       this.userModal.style.display = "none";
       console.log(`${this.username} scored on ${new Date().toDateString()}: ${score}`)
       // fetch(`https://firechiefsquirtle.herokuapp.com/api/scores`, {
-      fetch(`http://localhost:3001/scores`, {
+      fetch(`https://squirtlenode.fly.dev/scores`, {
         method: "POST",
         headers: {
           'Content-Type':'application/json',
