@@ -209,7 +209,6 @@ class Master {
     })
     .then((res) => res.json())
     .then((response) => {
-      console.log(response)
       for (let i = 0; i < response.length; i++) {
         let item = document.createElement('li');
         item.appendChild(document.createTextNode(`${response[i].username}: ${response[i].score}`));
