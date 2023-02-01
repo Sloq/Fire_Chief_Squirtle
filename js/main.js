@@ -19,7 +19,7 @@ class Master {
 
     const that = this;
 
-    fetch("https://firechiefsquirtle.herokuapp.com/api/scores",  {
+    fetch("http://localhost:3001/scores",  {
       method: "GET",
       headers: {
         "Accept": "application/json"
@@ -27,9 +27,10 @@ class Master {
     })
     .then((res) => res.json())
     .then((response) => {
-      for (let i = 0; i < response.scores.length; i++) {
+      console.log(response)
+      for (let i = 0; i < response.length; i++) {
         let item = document.createElement('li');
-        item.appendChild(document.createTextNode(`${response.scores[i].name}: ${response.scores[i].score}`));
+        item.appendChild(document.createTextNode(`${response[i].username}: ${response[i].score}`));
         this.leaderScoreboard.appendChild(item);
       }
     })
@@ -63,7 +64,8 @@ class Master {
     this.submitButton.onclick = () => {
       this.userModal.style.display = "none";
       console.log(`${this.username} scored on ${new Date().toDateString()}: ${score}`)
-      fetch(`https://firechiefsquirtle.herokuapp.com/api/scores`, {
+      // fetch(`https://firechiefsquirtle.herokuapp.com/api/scores`, {
+      fetch(`http://localhost:3001/scores`, {
         method: "POST",
         headers: {
           'Content-Type':'application/json',
@@ -71,16 +73,16 @@ class Master {
         mode: "cors",
         cache: 'default',        
         body: JSON.stringify({
-          "name": that.username,
+          "username": that.username,
           "score": score
         })
       })
       .then((res) => res.json())
       .then((response) => {
-        this.userScoreboard.innerHTML = response.scores[0].name
+        this.userScoreboard.innerHTML = response[0].username
         for (let i = 0; i < response.scores.length; i++) {
           let item = document.createElement('li');
-          item.appendChild(document.createTextNode(`${response.scores[i].score}`));
+          item.appendChild(document.createTextNode(`${response[i].score}`));
           this.userScoreboard.appendChild(item);
         }
         return response
@@ -117,7 +119,8 @@ class Master {
     this.submitButton.onclick = () => {
       this.userModal.style.display = "none";
       console.log(`${this.username} scored on ${new Date().toDateString()}: ${score}`)
-      fetch(`https://firechiefsquirtle.herokuapp.com/api/scores`, {
+      // fetch(`https://firechiefsquirtle.herokuapp.com/api/scores`, {
+      fetch(`http://localhost:3001/scores`, {
         method: "POST",
         headers: {
           'Content-Type':'application/json',
@@ -125,16 +128,16 @@ class Master {
         mode: "cors",
         cache: 'default',        
         body: JSON.stringify({
-          "name": that.username,
+          "username": that.username,
           "score": score
         })
       })
       .then((res) => res.json())
       .then((response) => {
-        this.userScoreboard.innerHTML = response.scores[0].name
-        for (let i = 0; i < response.scores.length; i++) {
+        this.userScoreboard.innerHTML = response[0].username
+        for (let i = 0; i < response.length; i++) {
           let item = document.createElement('li');
-          item.appendChild(document.createTextNode(`${response.scores[i].score}`));
+          item.appendChild(document.createTextNode(`${response[i].score}`));
           this.userScoreboard.appendChild(item);
         }
         return response
